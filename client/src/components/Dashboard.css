@@ -5,30 +5,49 @@
     position: absolute;
     bottom: 0vh;
     margin: 0px;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-auto-rows: minmax(100px, auto);
+    overflow: hidden;
 
 }
 .totalDisplay, .coinsDisplay, .chartDisplay{
-	margin: 10px;
-	padding: 1em;
+	margin: 10px 0.5vw 0 0.5vw;
+	padding: 2.05vh 1.04vw;
 	background: #dbdbdb;
 	border-top: #1989ea 5px solid;
 }
 .totalDisplay{
-	grid-column: 1;
-	height: 27vh;
-	grid-row: 1;
+	float: left;
+	width: 30vw;
+	height: 20vh;
+	text-align: center;
 }
 .coinsDisplay{
-	grid-column: 1;
-	height: calc(100vh - 27vh - 20vh);
-	grid-row: 2 / 8;
+	clear: both;
+	float: left;
+	width: 30vw;
+	height: 60vh;
 }
 
 .chartDisplay{
-	grid-column: 2;
-	height: calc(88vh - 10px);
-	grid-row: 1;
+	display: inline-block;
+	width: 63.5vw;
+	height: calc(20vh + 60vh + 10px + 45px);
+	text-align: center;
+	margin-right: 0px;
+}
+
+.tableCoins{
+	overflow-y: scroll;
+	height: 45vh;
+}
+
+.totalDisplay h1{
+	font-size: 25px;
+	margin: 0px;
+}
+
+.totalValue p{
+	font-size: 40px;
+	font-weight: 700;
+	margin: 0;
+	padding: 3vh 0;
 }

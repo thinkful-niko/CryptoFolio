@@ -38,9 +38,12 @@ export class Dashboard extends React.Component {
                     <h1>Portfolio Breakdown</h1>
 
                     <div className="addCoin"  onClick = { () => { this.props.addCoin('hi') } } > + Add Coin</div>
-                    <SearchBar coins={this.props.data}/>
-                    <input type="text" name="coinName" />
-                    <Table coins={this.props.data} />
+                    <SearchBar coins={this.props.data} className="searchBar"/>
+{/*                    <input type="text" name="coinName" />*/}
+                    <div className="tableCoins">
+                        <Table coins={this.props.data}/>
+                    </div>
+                    
                 </div>
 
                 <div className="chartDisplay">
