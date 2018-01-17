@@ -27,43 +27,44 @@ export class Dashboard extends React.Component {
 
         return (
             <div className="dashboard">
-
-                <div className="totalDisplay">
-                    <h1>Potfolio Value</h1>
-                    <div className="totalValue"><p>$9999,99</p></div>
-                    <div className="percentChange"><p>+10.05% Change(24hrs)</p></div>
-                </div>
-
-                <div className="coinsDisplay">
-                    <h1>Portfolio Breakdown</h1>
-
-                    <div className="addCoin"  onClick = { () => { this.props.addCoin('hi') } } > + Add Coin</div>
-                    <SearchBar coins={this.props.data} className="searchBar"/>
-{/*                    <input type="text" name="coinName" />*/}
-                    <div className="tableCoins">
-                        <Table coins={this.props.data}/>
+                <div className="dashContainer">
+                    <div className="totalDisplay">
+                        <h1>Potfolio Value</h1>
+                        <div className="totalValue"><p>$9999,99</p></div>
+                        <div className="percentChange"><p>+10.05% Change(24hrs)</p></div>
                     </div>
-                    
-                </div>
 
-                <div className="chartDisplay">
-                    <div className="chart"></div>
-                    <div className="selectors">
-                        <h1>View Coins:</h1>
-                        <input type="radio" name="coin" value="BitCoin" /> BitCoin
+                    <div className="coinsDisplay">
+                        <h1>Portfolio Breakdown</h1>
+
+                        <div className="addCoin"  onClick = { () => { this.props.addCoin('hi') } } > + Add Coin</div>
+                        <SearchBar coins={this.props.data} className="searchBar"/>
+    {/*                    <input type="text" name="coinName" />*/}
+                        <div className="tableCoins">
+                            <Table coins={this.props.data}/>
+                        </div>
+                        
                     </div>
-                </div>
+
+                    <div className="chartDisplay">
+                        <div className="chart"></div>
+                        <div className="selectors">
+                            <h1>View Coins:</h1>
+                            <input type="radio" name="coin" value="BitCoin" /> BitCoin
+                        </div>
+                    </div>
 
 
-{/*                <br />
-                <div className="dashboard-username">
-                    Email: {this.props.email}
+    {/*                <br />
+                    <div className="dashboard-username">
+                        Email: {this.props.email}
+                    </div>
+                    <div className="dashboard-protected-data">
+                        Protected data: {this.props.protectedData}
+                    </div>
+                    <br />
+                    <Link to="/add">Add Entry</Link>*/}
                 </div>
-                <div className="dashboard-protected-data">
-                    Protected data: {this.props.protectedData}
-                </div>
-                <br />
-                <Link to="/add">Add Entry</Link>*/}
             </div>
         );
     }

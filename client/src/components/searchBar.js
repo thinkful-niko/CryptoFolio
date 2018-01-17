@@ -50,17 +50,8 @@ export default class Example extends React.Component {
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
-    console.log(this.props);
-    let languages = [
-  {
-    name: 'C',
-    year: 1972
-  },
-  {
-    name: 'Elm',
-    year: 2012
-  },
-];
+    console.log('suggestion:', this.props);
+    
     this.setState({
       suggestions: getSuggestions(value, this.props.coins)
     });
@@ -78,7 +69,7 @@ export default class Example extends React.Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'Type a programming language',
+      placeholder: 'Search currency by name',
       value,
       onChange: this.onChange
     };

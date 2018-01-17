@@ -1,19 +1,38 @@
 .dashboard{
     width: 100vw;
-    height: 95vh;
+    height: calc(100vh - 50px);
     background: white;
     position: absolute;
     bottom: 0vh;
     margin: 0px;
     overflow: hidden;
-
 }
+
+.dashContainer{
+	margin: auto;
+	width: 100%;
+	padding: 40px 20px 20px 20px;
+	text-align: center;
+}
+
 .totalDisplay, .coinsDisplay, .chartDisplay{
 	margin: 10px 0.5vw 0 0.5vw;
-	padding: 2.05vh 1.04vw;
-	background: #dbdbdb;
-	border-top: #1989ea 5px solid;
+/*	padding: 2.05vh 1.04vw;*/
+	padding: 0;
+	background: #ededed;
+	border-top: 5px solid transparent;
+	border-image:linear-gradient(-45deg, #1e5799 0%, #27d190 50%, #263247 100%);
+	-moz-border-image: -moz-linear-gradient(-45deg, #1e5799 0%, #27d190 50%, #263247 100%);
+	-webkit-border-image:-webkit-linear-gradient(-45deg, #1e5799 0%, #27d190 50%, #263247 100%);
+	border-image-slice: 1;
 }
+
+.totalDisplay, .coinsDisplay{
+	-webkit-box-shadow: 5px 6px 2px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: 5px 6px 2px 2px rgba(0,0,0,0.25);
+	box-shadow: 5px 6px 2px 2px rgba(0,0,0,0.25);
+}
+
 .totalDisplay{
 	float: left;
 	width: 30vw;
@@ -21,6 +40,7 @@
 	text-align: center;
 }
 .coinsDisplay{
+	margin-top: 20px;
 	clear: both;
 	float: left;
 	width: 30vw;
@@ -30,9 +50,10 @@
 .chartDisplay{
 	display: inline-block;
 	width: 63.5vw;
-	height: calc(20vh + 60vh + 10px + 45px);
+	height: calc(20vh + 60vh + 35px);
 	text-align: center;
 	margin-right: 0px;
+	background: white;
 }
 
 .tableCoins{
@@ -40,14 +61,35 @@
 	height: 45vh;
 }
 
-.totalDisplay h1{
-	font-size: 25px;
+table{
+	text-align: left;
+	padding: 0 20px;
+}
+
+.totalDisplay h1, .coinsDisplay h1{
+	font-size: 22px;
 	margin: 0px;
+	background: #f7f7f7;
 }
 
 .totalValue p{
-	font-size: 40px;
+	font-size: 60px;
 	font-weight: 700;
 	margin: 0;
-	padding: 3vh 0;
+	padding: 1.5vh 0 0 0;
+	color: #08498d;
+}
+
+.percentChange p{
+	margin: 0;
+}
+
+.addCoin{
+	float: right;
+	padding-right: 3vw;
+}
+
+.react-autosuggest__container input{
+	border-radius: 15px;
+	padding: 3px;
 }

@@ -6,8 +6,8 @@ const Table = (props) => (
         <tbody>
           {props.coins.map((item, index) => {
             return (
-              <tr key={index} onClick = { () => { props.addCoin('hi') } }>
-                <td>{item.name}</td>
+              <tr key={index}>
+                <td>{item.symbol} {item.name}</td>
               </tr>
             );
           })}
