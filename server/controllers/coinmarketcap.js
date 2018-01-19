@@ -8,7 +8,6 @@ return new Promise((resolve, reject) => {
 			url: `https://api.coinmarketcap.com/v1/ticker/?limit=1000`,
 			json: true
 		}, (error, response, body) => {
-			console.log(body);
 			Coin.remove({}, function(){
 				for (i=0; i<body.length; i++){
 					let coin = new Coin(
@@ -17,7 +16,5 @@ return new Promise((resolve, reject) => {
 					coin.save();
 				}
 			});
-			
-			
 		});
 	})
