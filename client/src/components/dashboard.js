@@ -1,26 +1,54 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-import {fetchProtectedData, getCoinData} from '../actions/protected-data';
+import {fetchProtectedData, getCoinData, addCoinToList} from '../actions/protected-data';
+import { saveCoinData } from '../actions/addNew';
 import './Dashboard.css';
 import Table from './table';
 import SearchBar from './searchBar';
 import Chart from './chart';
+import AddCoinMenu from './add-coin-menu';
+import './addcoin.css';
 
 export class Dashboard extends React.Component {
     componentDidMount() {
         if (!this.props.loggedIn) {
             return;
         }
+        console.log('second', this.props);
         // this.props.dispatch(fetchProtectedData());
         this.props.dispatch(getCoinData());
+        // this.props.dispatch(yourCoinData());
     }
 
-    addCoin(coin){
-        console.log(coin);
+    state = {
+        coinName:'',
+        coinPrice: '',
+        coinAmount: 0
     }
+
+    showCoinMenu = () => {
+        const coinMenu = document.getElementsByClassName('addCoinMenuContainer')[0];
+        coinMenu.style.display = 'block';
+    }
+
+    addCoin = (coin) => {
+        console.log('addcoin@', this.props);
+        this.props.dispatch(saveCoinData(coin));
+        //added to state to fetch on button
+        this.setState(
+            coin
+        );
+        console.log('addCoin is:', coin);
+    }
+
+    addToList = () => {
+        console.log(this.state.coinData);
+        this.props.dispatch(addCoinToList(null, this.state.coinData));
+        console.log('ADD TO LIST DASH')
+    }
+
 
 
     render() {
@@ -29,14 +57,18 @@ export class Dashboard extends React.Component {
             return <Redirect to="/" />;
         }
         const dataDemo = [
-          {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-          {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-          {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-          {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-          {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-          {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-          {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+          {name: 'Date A', CoinA: 4000, CoinB: 2400, CoinC: 2400},
+          {name: 'Date B', CoinA: 3000, CoinB: 1398, CoinC: 2210},
+          {name: 'Date C', CoinA: 2000, CoinB: 9800, CoinC: 2290},
+          {name: 'Date D', CoinA: 2780, CoinB: 3908, CoinC: 2000},
+          {name: 'Date E', CoinA: 1890, CoinB: 4800, CoinC: 2181},
+          {name: 'Date F', CoinA: 2390, CoinB: 3800, CoinC: 2500},
+          {name: 'Date G', CoinA: 3490, CoinB: 4300, CoinC: 2100},
         ];
+
+        // const addToList = () => {
+        //     return <Table selectedCoin = {this.state.coin} selectedCoinPrice = {this.state.price} />
+        // }
 
         return (
             <div className="dashboard">
@@ -49,14 +81,32 @@ export class Dashboard extends React.Component {
 
                     <div className="coinsDisplay">
                         <h1>Portfolio Breakdown</h1>
+                        <table className="tableLable">
+                            <tbody>
+                                  <tr >
+                                    <th>Currency</th>
+                                    <th>Amount</th> 
+                                    <th>Price</th> 
+                                    <th>Value</th>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                        <div className="addCoin"  onClick = { () => { this.props.addCoin('hi') } } > + Add Coin</div>
-                        <SearchBar coins={this.props.data} className="searchBar"/>
+                        <div className="addCoin" onClick={this.showCoinMenu}> + Add Coin</div>
+{/*                        <SearchBar coins={this.props.data} className="searchBar"/>*/}
     {/*                    <input type="text" name="coinName" />*/}
                         <div className="tableCoins">
-                            <Table coins={this.props.data}/>
+                            <table>
+                                <tbody>
+                                    <Table coins={this.props.yourCoins}/>
+                                </tbody>
+                            </table>
+
                         </div>
-                        
+                    </div>
+
+                    <div className="addCoinMenuContainer">
+                       <AddCoinMenu coins={this.props.data} addCoin = {this.addCoin} selectedCoin = {this.state.coin} selectedCoinPrice = {this.state.price} addCoinFunction = {this.addToList}/>
                     </div>
 
                     <div className="chartDisplay">
@@ -91,8 +141,11 @@ const mapStateToProps = state => {
     return {
         loggedIn: currentUser !== null,
         email: currentUser ? state.auth.currentUser.email : '',
-        data: state.protectedData.data
+        data: state.protectedData.data,
+        yourCoins : state.protectedData.yourCoins
     };
 };
+
+
 
 export default connect(mapStateToProps)(Dashboard);

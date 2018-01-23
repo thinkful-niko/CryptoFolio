@@ -25,7 +25,7 @@ router.post('/login', passport.authenticate('basic', {session: false}), AuthCont
 router.post('/refresh', passport.authenticate('jwt', {session: false}), AuthController.refresh);
 
 //Add Entry
-router.post('/add', [passport.authenticate('jwt', {session: false}), jsonParser],UsersController.addEntry);
+router.post('/addCoin', [passport.authenticate('jwt', {session: false}), jsonParser],UsersController.addEntry);
 
 //Coin Data
 router.get('/coinData', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.getCoins);

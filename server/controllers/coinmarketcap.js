@@ -5,7 +5,7 @@ console.log('Data fecthed');
 
 return new Promise((resolve, reject) => {
 		request({
-			url: `https://api.coinmarketcap.com/v1/ticker/?limit=1000`,
+			url: `https://api.coinmarketcap.com/v1/ticker/?limit=500`,
 			json: true
 		}, (error, response, body) => {
 			Coin.remove({}, function(){

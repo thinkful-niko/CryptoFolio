@@ -2,17 +2,15 @@ import React from 'react'
 
 const Table = (props) => (
 
-      <table>
-        <tbody>
+<div>
           {props.coins.map((item, index) => {
             return (
               <tr key={index}>
-                <td>{item.symbol} {item.name}</td>
+                <td>{item.name} {item.coinAmount} {item.price_usd}</td>
               </tr>
             );
           })}
-        </tbody>
-      </table>
+</div>
 
 )
 

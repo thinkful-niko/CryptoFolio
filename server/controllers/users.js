@@ -2,6 +2,7 @@ const {User} = require('../models/users');
 const Entry  = require('../models/entries');
 const Coin = require('../models/coindb');
 
+
 // Post to register a new user
 exports.register = function(req, res, next) {
 // router.post('/', jsonParser, (req, res) => {
@@ -131,21 +132,28 @@ exports.register = function(req, res, next) {
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
-    console.log('sweet potato');
+    console.log('sweet potato', req.body);
     let entry = new Entry(req.body);
     entry['userId'] = req.user.id;
     entry.save();
-    return res.json({
-       data: 'rosebud'
-    });
 };
 
 exports.getCoins = function(req, res, next) {
     console.log('sweet potato 2');
     Coin.find().exec().then(result => {
-        return res.json({
-            data: result
-        });
+        Entry.find().exec().then(entryResult => {
+            console.log('HEY', entryResult);
+            return res.json({
+                entry: entryResult,
+                data: result,
+            });
+        }).catch(err => {throw err});
+
     }).catch(err => {throw err});
+};
+
+exports.getYourCoins = function(req, res, next) {
+    console.log('getYourCoins');
+
 };
 

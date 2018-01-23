@@ -1,5 +1,7 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
+import PlusCoin from './Plus.js';
+import { saveCoinData } from '../actions/addNew';
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 
@@ -8,8 +10,8 @@ import Autosuggest from 'react-autosuggest';
 const getSuggestions = (value, languages) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : languages.filter(lang =>
+  console.log('lang', value,languages);
+    return inputLength === 0 ? [] : languages.filter(lang =>
     lang.name.toLowerCase().slice(0, inputLength) === inputValue
   );
 };
@@ -22,11 +24,12 @@ const getSuggestionValue = suggestion => suggestion.name;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.name}
+    {suggestion.name} 
   </div>
 );
 
-export default class Example extends React.Component {
+// <PlusCoin plusCoin={this.plusCoin} />
+export default class searchBar extends React.Component {
   constructor() {
     super();
 
@@ -40,6 +43,10 @@ export default class Example extends React.Component {
       suggestions: []
     };
   }
+
+  plusCoin = () => {
+    console.log('Plus Coin Clicked')
+  };
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -64,6 +71,13 @@ export default class Example extends React.Component {
     });
   };
 
+  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) =>{
+        // this.props.dispatch(saveCoinData({coin: suggestionValue}));
+        this.props.addCoin({coinData: suggestion}); //It shouldnt add coin on selection, but on a button press.
+        console.log("onSuggestionSelected", suggestion.name, suggestion.price_usd);
+
+  };
+
   render() {
     const { value, suggestions } = this.state;
 
@@ -77,6 +91,7 @@ export default class Example extends React.Component {
     // Finally, render it!
     return (
       <Autosuggest
+      onSuggestionSelected={this.onSuggestionSelected}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
