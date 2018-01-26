@@ -142,10 +142,10 @@ exports.getCoins = function(req, res, next) {
     console.log('sweet potato 2');
     Coin.find().exec().then(result => {
         Entry.find().exec().then(entryResult => {
-            console.log('HEY', entryResult, res);
             return res.json({
                 entry: entryResult,
                 data: result,
+                historicalData: makeHistoricalDataChart(result, entryResult)
             });
         }).catch(err => {throw err});
 
@@ -157,3 +157,45 @@ exports.getYourCoins = function(req, res, next) {
 
 };
 
+function makeHistoricalDataChart(result, entryResult){
+    let historicalData = [result, result, result, result, result];
+    let chartData = [];
+    historicalData.forEach((hD, i)=>{ //all coindb arrays
+        let date = hD[0].last_updated;
+        let chartPoint = {};
+        date= i;
+        hD.forEach((r)=>{ // one of coindb arrays
+            let total = 0;
+            
+            entryResult.forEach((eR)=>{ //User Entries Array
+                if(r.id === eR.id){
+                    total += (Number(eR.price_usd) * Number(eR.amount));
+                    chartPoint[eR.symbol] = total;
+                    chartPoint['date'] = date;
+                    console.log(r.id, "ID MATCHED", date, total);
+                }
+            })
+        });
+        chartData.push(chartPoint);
+    })
+    console.log(chartData);
+    return chartData;
+}
+
+const dummyData = [
+          {name: 'Date A', CoinA: 4000, CoinB: 2400, CoinX: 2400},
+          {name: 'Date B', CoinA: 3000, CoinB: 1398, CoinX: 2210},
+          {name: 'Date C', CoinA: 2000, CoinB: 9800, CoinX: 2290},
+          {name: 'Date D', CoinA: 2780, CoinB: 3908, CoinX: 2000},
+          {name: 'Date E', CoinA: 1890, CoinB: 4800, CoinX: 2181},
+          {name: 'Date F', CoinA: 2390, CoinB: 3800, CoinX: 2500},
+          {name: 'Date G', CoinA: 3490, CoinB: 4300, CoinX: 2100},
+          {name: 'Date H', CoinA: 4000, CoinB: 2400, CoinX: 2400},
+          {name: 'Date I', CoinA: 3000, CoinB: 1398, CoinX: 2210},
+          {name: 'Date J', CoinA: 2000, CoinB: 9800, CoinX: 2290},
+          {name: 'Date K', CoinA: 2780, CoinB: 3908, CoinX: 2000},
+          {name: 'Date L', CoinA: 1890, CoinB: 4800, CoinX: 2181},
+          {name: 'Date M', CoinA: 2390, CoinB: 3800, CoinX: 2500},
+          {name: 'Date N', CoinA: 3490, CoinB: 4300, CoinX: 2100},
+          {name: 'Date O', CoinA: 4000, CoinB: 2400, CoinX: 2400},        
+];

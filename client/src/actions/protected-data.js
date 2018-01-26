@@ -3,16 +3,11 @@ import {normalizeResponseErrors} from './utils';
 
 export const FETCH_PROTECTED_DATA_SUCCESS = 'FETCH_PROTECTED_DATA_SUCCESS';
 //Not being used anymore
-export const fetchProtectedDataSuccess = (data, entry) => ({
+export const fetchProtectedDataSuccess = (data, entry, historicalData) => ({
     type: FETCH_PROTECTED_DATA_SUCCESS,
     data,
-    entry
-});
-
-export const addCoinToList = (data, entry) => ({
-    type: 'ADD_COIN_TO_LIST',
-    data,
-    entry
+    entry,
+    historicalData
 });
 
 export const pushEntryToState = (data, entry) => ({
@@ -58,12 +53,11 @@ export const getCoinData = () => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({data, entry}) => {
+        .then(({data, entry, historicalData}) => {
             //data is the data from ALL coins
             //entry is the user coins
-            console.log('protected-data.js', data, entry);
-            dispatch(fetchProtectedDataSuccess(data, entry));
-            dispatch(addCoinToList(data, entry));
+            console.log('protected-data.js', data, entry, historicalData);
+            dispatch(fetchProtectedDataSuccess(data, entry, historicalData));
         })
         .catch(err => {
             dispatch(fetchProtectedDataError(err));

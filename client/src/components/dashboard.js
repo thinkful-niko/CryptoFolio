@@ -72,15 +72,6 @@ export class Dashboard extends React.Component {
         if (!this.props.loggedIn) {
             return <Redirect to="/" />; 
         }
-        const dataDemo = [
-          {name: 'Date A', CoinA: 4000, CoinB: 2400, CoinC: 2400},
-          {name: 'Date B', CoinA: 3000, CoinB: 1398, CoinC: 2210},
-          {name: 'Date C', CoinA: 2000, CoinB: 9800, CoinC: 2290},
-          {name: 'Date D', CoinA: 2780, CoinB: 3908, CoinC: 2000},
-          {name: 'Date E', CoinA: 1890, CoinB: 4800, CoinC: 2181},
-          {name: 'Date F', CoinA: 2390, CoinB: 3800, CoinC: 2500},
-          {name: 'Date G', CoinA: 3490, CoinB: 4300, CoinC: 2100},
-        ];
 
         // const addToList = () => {
         //     return <Table selectedCoin = {this.props.entry}  />
@@ -139,7 +130,7 @@ export class Dashboard extends React.Component {
 
                     <div className="chartDisplay">
                         <div className="chart">
-                            <Chart data={dataDemo} />
+                            <Chart data={this.props.chartData} />
                         </div>
                         <div className="selectors">
                             <h1>View Coins:</h1>
@@ -170,7 +161,8 @@ const mapStateToProps = state => {
         loggedIn: currentUser !== null,
         email: currentUser ? state.auth.currentUser.email : '',
         data: state.protectedData.data,
-        yourCoins : state.protectedData.yourCoins
+        yourCoins : state.protectedData.yourCoins,
+        chartData: state.protectedData.chartData
     };
 };
 
