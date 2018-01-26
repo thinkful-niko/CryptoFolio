@@ -40,7 +40,7 @@ export const saveCoinData = (entry) => (dispatch, getState) => {
     console.log('entry', entry);
     return fetch(`${API_BASE_URL}/addCoin`, {
         method: 'POST',
-        body: JSON.stringify(entry.coinData),
+        body: JSON.stringify(entry),
         headers: {
             // Provide our auth token as credentials
             Authorization: `Bearer ${authToken}`,

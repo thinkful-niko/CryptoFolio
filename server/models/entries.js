@@ -9,7 +9,8 @@ const EntrySchema = new Schema({
      price_btc: String,
      percent_change_24h: String,
      last_updated: String,
-     userId: String
+     userId: String,
+     amount: String
 });
 
 module.exports = mongoose.model('Entry', EntrySchema);

@@ -142,7 +142,7 @@ exports.getCoins = function(req, res, next) {
     console.log('sweet potato 2');
     Coin.find().exec().then(result => {
         Entry.find().exec().then(entryResult => {
-            console.log('HEY', entryResult);
+            console.log('HEY', entryResult, res);
             return res.json({
                 entry: entryResult,
                 data: result,

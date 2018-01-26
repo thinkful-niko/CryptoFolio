@@ -2,37 +2,15 @@ import React from 'react'
 
 const Table = (props) => (
 
-<div>
-          {props.coins.map((item, index) => {
-            return (
-              <tr key={index}>
-                <td>{item.name} {item.coinAmount} {item.price_usd}</td>
+<div className='coinsTable'>
+          {/*PROBLEM: THIS IS MAPPING ON PAGE LOAD, IT NEEDS TO BE UPDATED ON BUTTON CLICK*/}
+              <tr>
+                 <th className='coinTableName'>{props.coin.symbol} </th>
+                  <th>{props.coin.amount} </th>
+                  <th>${parseFloat(props.coin.price_usd, 10).toFixed(4)} </th>
+                  <th className='coinTableValue'>${parseFloat(parseFloat(props.coin.amount, 10) * parseFloat(props.coin.price_usd, 10)).toFixed(2)} </th>
               </tr>
-            );
-          })}
 </div>
 
 )
-
 export default Table
-
-{/*<div>
-    <table>
-        <tbody>
-              <tr>
-              	{{
-				    return (
-				      <ul>
-				        {this.props.coins.map(item => (
-				          <li key={item.id}>{item.text}</li>
-				        ))}
-				      </ul>
-				})}
-                <th>Coin</th>
-                <th>Holdings</th> 
-                <th>Price</th>
-                <th>Value</th>
-              </tr>
-        </tbody>
-    </table>
-  </div>*/}

@@ -73,7 +73,8 @@ export default class searchBar extends React.Component {
 
   onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) =>{
         // this.props.dispatch(saveCoinData({coin: suggestionValue}));
-        this.props.addCoin({coinData: suggestion}); //It shouldnt add coin on selection, but on a button press.
+        //THIS STOPPED WORKING FOR NO REASON, addCoinToEntry is not a function
+        this.props.addCoinToEntry({coinData: suggestion}); //It shouldnt add coin on selection, but on a button press.
         console.log("onSuggestionSelected", suggestion.name, suggestion.price_usd);
 
   };

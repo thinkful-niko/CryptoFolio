@@ -35,7 +35,7 @@
 
 .totalDisplay{
 	float: left;
-	width: 30vw;
+	width: 35vw;
 	height: 20vh;
 	text-align: center;
 }
@@ -43,7 +43,7 @@
 	margin-top: 20px;
 	clear: both;
 	float: left;
-	width: 30vw;
+	width: 35vw;
 	height: 60vh;
 }
 
@@ -58,6 +58,7 @@
 
 .tableCoins{
 	overflow-y: scroll;
+	overflow-x: hidden;
 	height: 53vh;
 }
 
@@ -84,6 +85,7 @@
 table{
 	text-align: left;
 	padding: 0 20px;
+
 }
 
 .totalDisplay h1, .coinsDisplay h1{
@@ -106,7 +108,7 @@ table{
 
 .addCoin{
  	position: absolute;
- 	right: 70vw;
+ 	right: 66.5vw;
  	top: calc(20px + 20vh + 40px + 21px);
  	background: #ff530a;
  	color: white;
@@ -127,7 +129,27 @@ table{
 }
 
 th{
-	padding: 0 2vw;
+	min-width: 100px;
+	max-width: 100px;
+	padding:0;
+	padding-right: 2.8vw;
+	text-align: center;
+}
+
+.tableCoins table{
+	padding: 0 20px;
+
+}
+.coinsTable{
+	width: 100%;
+}
+
+.coinTableName{
+	text-align: left;
+}
+
+.coinTableValue{
+	padding-left: 20px;
 }
 
 .tableLable{
