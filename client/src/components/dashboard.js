@@ -43,29 +43,23 @@ export class Dashboard extends React.Component {
         this.setState(coin);
         console.log('addCoin is:', coin);
     }
-//Fetches amount added by user and adds it to coinData in the STATE
+
+// Fetches amount added by user and adds it to coinData in the STATE
     amountHandler = (event) =>{
         if(event.target.value < 0) {alert("Please Enter A Number");  return};
         console.log('EVENT STATE', this.state)
         console.log(event.target.value);
-//----! ADDS AMOUNT TO THE STATE, IT HAS TO GO TO THE REDUCER!
-        //this.props.somethingHere
         this.state.coinData.amount = event.target.value;
     }
 
-//Adds selected coin to YourCoins State, which then is mapped in <Table />. Also saves coin to the collection.
-//PROBLEM: <Table /> is mapping yourCoins on reload, so it doesn't show new coins until the page is reloaded.
-//A change of state needs to happen in order to trigger a refresh
+// Adds user selected coin to list and saves it in the coins collection.
+/*To do:-add a warning when someone clicks the button and the 'amount' field is empty.
+        -Send Historical Data to reducer, so recharts can handle it.
+*/
     addToList = () => {
-        //the second parameter of addCoinToList is the entry
         console.log("!ADD TO LIST!",this);
-//------!!! Sending null and "this.state.coinData" is creating a conflict in the Reducer
         this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.chartData));
-        //this.props.addCoinToList(null, this.state.coinData)
-//----!IT IS SAVING DATA FROM THE STATE, THIS ALSO HAS TO GO TO THE REDUCER AND PULL DATA FROM PROPS!
         this.props.dispatch(saveCoinData(this.state.coinData));
-
-        //Add a return <table coins={this.state.coinData}>, but how to target the right div?
     }
 
     render() {
@@ -73,10 +67,6 @@ export class Dashboard extends React.Component {
         if (!this.props.loggedIn) {
             return <Redirect to="/" />; 
         }
-
-        // const addToList = () => {
-        //     return <Table selectedCoin = {this.props.entry}  />
-        // }
 
         console.log("STATE Render:",this.state, "PROP Render:", this.prop,this.props.data, this.props.yourCoins);
 
@@ -105,9 +95,7 @@ export class Dashboard extends React.Component {
                         </table>
 
                         <div className="addCoin" onClick={this.showCoinMenu}> + Add Coin</div>
-        
-{/*                        <SearchBar coins={this.props.data} className="searchBar"/>*/}
-    {/*                    <input type="text" name="coinName" />*/}
+
                         <div className="tableCoins">
                             <table>
                                 <tbody>
