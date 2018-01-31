@@ -7,7 +7,7 @@ const passport = require('passport');
 const jsonParser = bodyParser.json();
 const request = require('request');
 
-require ('./controllers/coinmarketcap');
+//require ('./controllers/coinmarketcap');
 
 const {router: Router, basicStrategy, jwtStrategy} = require('./controllers/router');
 
