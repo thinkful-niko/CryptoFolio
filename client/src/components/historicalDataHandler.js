@@ -4,8 +4,8 @@
 
 
 DataStructure[
-	{date: 'Date A', CoinA: {value}, CoinB: 2400, CoinC: 2400},
-	{date: 'Date B', CoinA: 3000, CoinB: 1398, CoinC: 2210}
+	[{date: 1231231, name: coinA, amount: X, value: Y}],
+	{date: 'Date B', }
 ]
 
      id: String,

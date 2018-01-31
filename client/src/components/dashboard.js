@@ -1,5 +1,6 @@
 /*TODO:
--Figure out what is going on with the Search component now. Somehow data(500) becomes overwritten.
+-User data is unique to each user.
+-Chart Data takes in actual historical data and starts rolling.
 */
 import React from 'react';
 import {connect} from 'react-redux';
@@ -57,9 +58,9 @@ export class Dashboard extends React.Component {
 //A change of state needs to happen in order to trigger a refresh
     addToList = () => {
         //the second parameter of addCoinToList is the entry
-        console.log("!ADD TO LIST!",this.state.coinData);
+        console.log("!ADD TO LIST!",this);
 //------!!! Sending null and "this.state.coinData" is creating a conflict in the Reducer
-        this.props.dispatch(pushEntryToState(null, this.state.coinData));
+        this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.chartData));
         //this.props.addCoinToList(null, this.state.coinData)
 //----!IT IS SAVING DATA FROM THE STATE, THIS ALSO HAS TO GO TO THE REDUCER AND PULL DATA FROM PROPS!
         this.props.dispatch(saveCoinData(this.state.coinData));

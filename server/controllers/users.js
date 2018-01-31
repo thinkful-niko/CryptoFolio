@@ -157,45 +157,30 @@ exports.getYourCoins = function(req, res, next) {
 
 };
 
+//This function is sorting and comparing result(all data) and entryResults(userData), then it creates an object of arrays with historical data.
+//It is cascading down into the levels of data (historicalData[which will be an array of different snapshots of the main data], current data and user entries).
+//It creates an object that is composed of arrays, holding different data at different times.
 function makeHistoricalDataChart(result, entryResult){
-    let historicalData = [result, result, result, result, result];
+    let historicalData = [result, result, result, result, result];//This will be replaced by an array with different snapshots of coinDB collection
     let chartData = [];
-    historicalData.forEach((hD, i)=>{ //all coindb arrays
-        let date = hD[0].last_updated;
-        let chartPoint = {};
-        date= i;
-        hD.forEach((r)=>{ // one of coindb arrays
-            let total = 0;
-            
-            entryResult.forEach((eR)=>{ //User Entries Array
-                if(r.id === eR.id){
-                    total += (Number(eR.price_usd) * Number(eR.amount));
-                    chartPoint[eR.symbol] = total;
-                    chartPoint['date'] = date;
+    historicalData.forEach((hD, i)=>{ //all coindb arrays being looped
+        let date = hD[0].last_updated; //fetching date of each coin on the snapshot, !!shouldn't this eventually be 'hD[i]'?!!
+        let chartPoint = {};//creating object to be used as chart source, arrays will be pushed inside it.
+        date= i;//temporary date~
+        hD.forEach((r)=>{ // one of coindb arrays inside of the snapshot.
+            let total = 0; //creating total to be added later
+            entryResult.forEach((eR)=>{ //User Entries Array coming from parameters, being looped
+                if(r.id === eR.id){ //if there is a coin on user entries that is in the main coin collection
+                    total += (Number(eR.price_usd) * Number(eR.amount)); // Set the value of each entry, even if it is repeated.
+                    chartPoint[eR.symbol] = total; //set the objet key ('chartPoin.eRSymbol' but in bracket notation) to 'total'
+                    chartPoint['date'] = date; // bracket notation for chartPoint.date = date
                     console.log(r.id, "ID MATCHED", date, total);
                 }
             })
         });
-        chartData.push(chartPoint);
+        chartData.push(chartPoint); 
     })
     console.log(chartData);
-    return chartData;
+    return chartData;//chart data is an array of objects [{BTC: value of BTC, date: X ETH: value of ETH}, {... ,date: X+1, ...}]. The value of each repeated entry is added.
+    // go to chart.js to add the key values, create a loop (map) that does it all by itself.
 }
-
-const dummyData = [
-          {name: 'Date A', CoinA: 4000, CoinB: 2400, CoinX: 2400},
-          {name: 'Date B', CoinA: 3000, CoinB: 1398, CoinX: 2210},
-          {name: 'Date C', CoinA: 2000, CoinB: 9800, CoinX: 2290},
-          {name: 'Date D', CoinA: 2780, CoinB: 3908, CoinX: 2000},
-          {name: 'Date E', CoinA: 1890, CoinB: 4800, CoinX: 2181},
-          {name: 'Date F', CoinA: 2390, CoinB: 3800, CoinX: 2500},
-          {name: 'Date G', CoinA: 3490, CoinB: 4300, CoinX: 2100},
-          {name: 'Date H', CoinA: 4000, CoinB: 2400, CoinX: 2400},
-          {name: 'Date I', CoinA: 3000, CoinB: 1398, CoinX: 2210},
-          {name: 'Date J', CoinA: 2000, CoinB: 9800, CoinX: 2290},
-          {name: 'Date K', CoinA: 2780, CoinB: 3908, CoinX: 2000},
-          {name: 'Date L', CoinA: 1890, CoinB: 4800, CoinX: 2181},
-          {name: 'Date M', CoinA: 2390, CoinB: 3800, CoinX: 2500},
-          {name: 'Date N', CoinA: 3490, CoinB: 4300, CoinX: 2100},
-          {name: 'Date O', CoinA: 4000, CoinB: 2400, CoinX: 2400},        
-];
