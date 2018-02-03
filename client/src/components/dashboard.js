@@ -23,7 +23,6 @@ export class Dashboard extends React.Component {
         if (!this.props.loggedIn) {
             return;
         }
-
         this.props.dispatch(getCoinData());
     }
 
@@ -67,7 +66,7 @@ export class Dashboard extends React.Component {
             return <Redirect to="/" />; 
         }
 
-
+        //Adds user amounts together if user adds duplicate coin.
         let result = [] 
         this.props.yourCoins.forEach((coin)=>{
             //console.log(coin.id)
@@ -144,7 +143,7 @@ export class Dashboard extends React.Component {
 
                     <div className="chartDisplay">
                         <div className="chart">
-                            <Chart data={this.props.chartData} />
+                            <Chart data={this.props.chartData} colorRandom={this.props.randomColor} />
                         </div>
                         <div className="selectors">
                             <h1>View Coins:</h1>
@@ -166,7 +165,8 @@ const mapStateToProps = state => {
         data: state.protectedData.data,
         yourCoins : state.protectedData.yourCoins,
         chartData: state.protectedData.chartData,
-        unique: state.protectedData.unique
+        unique: state.protectedData.unique,
+        randomColor: state.protectedData.randomColor
     };
 };
 

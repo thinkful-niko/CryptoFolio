@@ -183,12 +183,15 @@ exports.getLatestCoins = function(req, res, next) {
 //It creates an object that is composed of arrays, holding different data at different times.
 function makeHistoricalDataChart(result, entryResult){
     // console.log("Make Historical Data:",result);
-    let historicalData = [result, result, result, result, result];//This will be replaced by an array with different snapshots of coinDB collection
+    let historicalData = [result, result, result, result, result, result];//This will be replaced by an array with different snapshots of coinDB collection
+    console.log('RESULT:', result);
     let chartData = [];
     historicalData.forEach((hD, i)=>{ //all coindb arrays being looped
-        let date = hD[0].last_updated; //fetching date of each coin on the snapshot, !!shouldn't this eventually be 'hD[i]'?!!
+        let UNIX = Number(hD[0].last_updated + '000'); //Correct UNIX timestamp and make it a number
+        let UNIXdate = new Date(UNIX); //Create date with UNIX timestamp
+        let ISOdate = UNIXdate.toISOString(); //Convert UNIX to ISO timestamp
+        let date = ISOdate.substring(0, 10); //Convert ISO into YYYY-MM-DD
         let chartPoint = {};//creating object to be used as chart source, arrays will be pushed inside it.
-        date= i;//temporary date~
         hD.forEach((r)=>{ // one of coindb arrays inside of the snapshot.
             let total = 0; //creating total to be added later
             entryResult.forEach((eR)=>{ //User Entries Array coming from parameters, being looped

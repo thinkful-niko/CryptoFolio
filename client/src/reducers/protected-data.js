@@ -8,7 +8,8 @@ const initialState = {
     error: null,
     yourCoins: [],
     chartData: [],
-    unique: []
+    unique: [],
+    randomColor: []
 
 };
 
@@ -20,10 +21,10 @@ export default function reducer(state = initialState, action) {
             let yourCoinsArr = state.yourCoins;
             let lastEntry = action.entry;
             yourCoinsArr.push(lastEntry);
-            let dummyData = [{"BTC":55159.449999999999,"date":5,"ETH":2284.52,"MIOTA":821.876}];
+            let dummyData = action.historicalData;
             let chartDataUpdate = action.historicalData;
-            chartDataUpdate.push(dummyData[0]);
-            console.log(`ADDED lastEntry = ${lastEntry} TO yourCoinsArr = ${yourCoinsArr}`);
+            chartDataUpdate.push(...dummyData);
+            console.log(`ADDED lastEntry = ${lastEntry} TO yourCoinsArr = ${yourCoinsArr} HISTORICAL = ${chartDataUpdate}`);
             return {
                 ...state,
                 // data: action.data,
@@ -33,6 +34,11 @@ export default function reducer(state = initialState, action) {
             }
         //Renders Initial State and sets data to all data from the db
         case FETCH_PROTECTED_DATA_SUCCESS:
+            let randomColorArr=[];
+            for (let i = 0; i<52; i++){
+                let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                randomColorArr.push(randomColor);
+            }
             console.log('FETCH action',action)
             console.log(JSON.stringify(action.historicalData));
             return {
@@ -41,7 +47,8 @@ export default function reducer(state = initialState, action) {
                 error: null,
                 yourCoins: [...action.entry],
                 chartData: [...action.historicalData],
-                unique: [...action.unique]
+                unique: [...action.unique],
+                randomColor: [...randomColorArr]
             }
         case FETCH_PROTECTED_DATA_ERROR:
             return{
