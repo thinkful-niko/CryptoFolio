@@ -2,7 +2,6 @@ import React from 'react';
 import SearchBar from './searchBar';
 import './addcoin.css';
 
-
 const AddCoinMenu = (props) => {
     //Hides coin menu when X is clicked
     const hideCoinMenu = () => {

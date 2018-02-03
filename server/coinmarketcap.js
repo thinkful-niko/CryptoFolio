@@ -9,7 +9,7 @@ mongoose.connect('mongodb://nicolaskao:1234@ds119088.mlab.com:19088/cryptofolio'
 return new Promise((resolve, reject) => {
 		console.log('Data fecthed');
 		request({
-			url: `https://api.coinmarketcap.com/v1/ticker/?limit=5`,
+			url: `https://api.coinmarketcap.com/v1/ticker/?limit=7`,
 			json: true
 		}, (error, response, body) => {
 			//Delete old data that is 'daysToDeletion' days old.

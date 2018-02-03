@@ -141,11 +141,19 @@ exports.addEntry = function(req, res, next) {
 exports.getCoins = function(req, res, next) {
     console.log('sweet potato 2');
     Coin.find().exec().then(result => {
+        var index = {};
+        var data = result;
+
+        data.forEach(item => index[item.id] = item);
+        console.log("LATEST:",Object.values(index));
+        let unique = Object.values(index);
+      
         Entry.find().exec().then(entryResult => {
             return res.json({
                 entry: entryResult,
-                data: result,
-                historicalData: makeHistoricalDataChart(result, entryResult)
+                allData: result,
+                historicalData: makeHistoricalDataChart(result, entryResult),
+                unique: unique
             });
         }).catch(err => {throw err});
 
@@ -157,10 +165,24 @@ exports.getYourCoins = function(req, res, next) {
 
 };
 
+
+exports.getLatestCoins = function(req, res, next) {
+    console.log('getLatestCoins');
+    Coin.find().sort({last_updated: -1 }).limit(7).exec().then(result => {
+        console.log("Coin Sort",result);
+         return res.json({
+                latestCoins: result,
+            });
+        }).catch(err => {throw err});
+
+};
+
+
 //This function is sorting and comparing result(all data) and entryResults(userData), then it creates an object of arrays with historical data.
 //It is cascading down into the levels of data (historicalData[which will be an array of different snapshots of the main data], current data and user entries).
 //It creates an object that is composed of arrays, holding different data at different times.
 function makeHistoricalDataChart(result, entryResult){
+    // console.log("Make Historical Data:",result);
     let historicalData = [result, result, result, result, result];//This will be replaced by an array with different snapshots of coinDB collection
     let chartData = [];
     historicalData.forEach((hD, i)=>{ //all coindb arrays being looped
@@ -174,13 +196,13 @@ function makeHistoricalDataChart(result, entryResult){
                     total += (Number(eR.price_usd) * Number(eR.amount)); // Set the value of each entry, even if it is repeated.
                     chartPoint[eR.symbol] = total; //set the objet key ('chartPoin.eRSymbol' but in bracket notation) to 'total'
                     chartPoint['date'] = date; // bracket notation for chartPoint.date = date
-                    console.log(r.id, "ID MATCHED", date, total);
+                    // console.log(r.id, "ID MATCHED", date, total);
                 }
             })
         });
         chartData.push(chartPoint); 
     })
-    console.log(chartData);
+    console.log("THIS IS CHARDATA:",chartData);
     return chartData;//chart data is an array of objects [{BTC: value of BTC, date: X ETH: value of ETH}, {... ,date: X+1, ...}]. The value of each repeated entry is added.
     // go to chart.js to add the key values, create a loop (map) that does it all by itself.
 }

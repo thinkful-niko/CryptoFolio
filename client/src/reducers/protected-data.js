@@ -3,18 +3,18 @@ import {
     FETCH_PROTECTED_DATA_ERROR
 } from '../actions/protected-data';
 
-//If I set the initial state of yourCoins to the entry, I might be able to make the state work inside the dashboard
 const initialState = {
     data: [],
     error: null,
     yourCoins: [],
-    chartData: []
+    chartData: [],
+    unique: []
 
 };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        //Pushes last entry into yourCoins array
+        //Pushes last entry into yourCoins array, also updates the chart with new data.
         case 'PUSH_ENTRY_TO_STATE':
             console.log('PUSH_ENTRY_TO_STATE', action, state);
             let yourCoinsArr = state.yourCoins;
@@ -40,7 +40,8 @@ export default function reducer(state = initialState, action) {
                 data: [...action.data],
                 error: null,
                 yourCoins: [...action.entry],
-                chartData: [...action.historicalData]
+                chartData: [...action.historicalData],
+                unique: [...action.unique]
             }
         case FETCH_PROTECTED_DATA_ERROR:
             return{

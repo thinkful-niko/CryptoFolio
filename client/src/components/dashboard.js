@@ -1,6 +1,8 @@
 /*TODO:
 -User data is unique to each user.
 -Chart Data takes in actual historical data and starts rolling.
+-Add Pie Chart beneath chart.
+-Add ROI calculation (based on total investment cost)
 */
 import React from 'react';
 import {connect} from 'react-redux';
@@ -21,17 +23,14 @@ export class Dashboard extends React.Component {
         if (!this.props.loggedIn) {
             return;
         }
-        console.log('second', this.props);
 
-//----!GET COIN DATA IS RUNNING UPON START, BUT IT ALSO HANDLES ADD TO LIST!
         this.props.dispatch(getCoinData());
-//----!This shouldn't be empty!
-        console.log("DATA:", this.props.data);
     }
 
-//----!coinData is setState'd by addCoinToEntry() on searchBar.js! This has to go to the reducer state! State could be mutating data
+//State holds the selected coin data after the user input.
     state = {}
 
+//Add Coin Menu Visibility Toggle
     showCoinMenu = () => {
         const coinMenu = document.getElementsByClassName('addCoinMenuContainer')[0];
         coinMenu.style.display = 'block';
@@ -68,6 +67,34 @@ export class Dashboard extends React.Component {
             return <Redirect to="/" />; 
         }
 
+
+        let result = [] 
+        this.props.yourCoins.forEach((coin)=>{
+            //console.log(coin.id)
+            for(var r=0; r<result.length; r++){
+
+              if(result[r].id == coin.id){// duplicate
+                result[r]['amount'] += Number(coin.amount);
+                result[r]['price_usd'] += Number(coin.price_usd);
+                
+                return;
+              }
+            }
+            result.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd)})
+        })
+
+
+
+        // var result = Object.keys(groups).map(function(currentGroup) {
+        //     console.log('GROUP:',groups, currentGroup)
+        //    // return {Project: currentGroup, Hours: groups[currentGroup]};
+        // });
+
+        let yourCoins =  
+        result.map((item, index)=>{
+            return <Table coin={item} key={index}/>
+        })  
+
         console.log("STATE Render:",this.state, "PROP Render:", this.prop,this.props.data, this.props.yourCoins);
 
         return (
@@ -99,9 +126,7 @@ export class Dashboard extends React.Component {
                         <div className="tableCoins">
                             <table>
                                 <tbody>
-                                    {this.props.yourCoins.map((item, index)=>{
-                                        return <Table coin={item} key={index}/>
-                                    })}                              
+                                   {yourCoins}                            
                                 </tbody>
                             </table>
 
@@ -109,7 +134,7 @@ export class Dashboard extends React.Component {
                     </div>
 
                     <div className="addCoinMenuContainer">
-                       <AddCoinMenu coins={this.props.data} 
+                       <AddCoinMenu coins={this.props.unique} 
                        addCoinToEntry = {this.addCoinToEntry} 
                        selectedCoin = {this.state.coin} 
                        addCoinFunction = {this.addToList}
@@ -126,17 +151,6 @@ export class Dashboard extends React.Component {
                             <input type="radio" name="coin" value="BitCoin" /> BitCoin
                         </div>
                     </div>
-
-
-    {/*                <br />
-                    <div className="dashboard-username">
-                        Email: {this.props.email}
-                    </div>
-                    <div className="dashboard-protected-data">
-                        Protected data: {this.props.protectedData}
-                    </div>
-                    <br />
-                    <Link to="/add">Add Entry</Link>*/}
                 </div>
             </div>
         );
@@ -151,17 +165,9 @@ const mapStateToProps = state => {
         email: currentUser ? state.auth.currentUser.email : '',
         data: state.protectedData.data,
         yourCoins : state.protectedData.yourCoins,
-        chartData: state.protectedData.chartData
+        chartData: state.protectedData.chartData,
+        unique: state.protectedData.unique
     };
 };
-
-//mapDispatchToProps breaks the searchBar
-// const mapDispatchToProps = dispatch => {
-//     return{
-//         addCoinToList: () => ({type: 'ADD_COIN_TO_LIST'})
-//     };
-// };
-
-
 
 export default connect(mapStateToProps)(Dashboard);

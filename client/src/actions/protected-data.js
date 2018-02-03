@@ -2,12 +2,13 @@ import {API_BASE_URL} from '../config';
 import {normalizeResponseErrors} from './utils';
 
 export const FETCH_PROTECTED_DATA_SUCCESS = 'FETCH_PROTECTED_DATA_SUCCESS';
-//Not being used anymore
-export const fetchProtectedDataSuccess = (data, entry, historicalData) => ({
+
+export const fetchProtectedDataSuccess = (data, entry, historicalData, unique) => ({
     type: FETCH_PROTECTED_DATA_SUCCESS,
     data,
     entry,
-    historicalData
+    historicalData,
+    unique
 });
 
 export const pushEntryToState = (data, entry, historicalData) => ({
@@ -23,26 +24,6 @@ export const fetchProtectedDataError = error => ({
     error
 });
 
-// export const fetchProtectedData = () => (dispatch, getState) => {
-//     const authToken = getState().auth.authToken;
-//     return fetch(`${API_BASE_URL}/protected`, {
-//         method: 'GET',
-//         headers: {
-//             // Provide our auth token as credentials
-//             Authorization: `Bearer ${authToken}`
-//         }
-//     })
-//         .then(res => normalizeResponseErrors(res))
-//         .then(res => res.json())
-//         .then(({data}) => {
-//             console.log('protected-data.js22', data);
-//             dispatch(fetchProtectedDataSuccess(data))
-//         })
-//         .catch(err => {
-//             dispatch(fetchProtectedDataError(err));
-//         });
-// };
-
 export const getCoinData = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/coinData`, {
@@ -54,15 +35,14 @@ export const getCoinData = () => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({data, entry, historicalData}) => {
+        .then(({allData, entry, historicalData, unique}) => {
             //data is the data from ALL coins
             //entry is the user coins
-            console.log('protected-data.js', data, entry, historicalData);
-            dispatch(fetchProtectedDataSuccess(data, entry, historicalData));
+            console.log('protected-data.js', allData, entry, historicalData, unique);
+            dispatch(fetchProtectedDataSuccess(allData, entry, historicalData, unique));
         })
         .catch(err => {
             dispatch(fetchProtectedDataError(err));
         });
         
 };
-

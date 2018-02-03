@@ -3,7 +3,6 @@ import React from 'react'
 const Table = (props) => (
 
 <div className='coinsTable'>
-          {/*PROBLEM: THIS IS MAPPING ON PAGE LOAD, IT NEEDS TO BE UPDATED ON BUTTON CLICK*/}
               <tr>
                  <th className='coinTableName'>{props.coin.symbol} </th>
                   <th>{props.coin.amount} </th>
