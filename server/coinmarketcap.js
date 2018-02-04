@@ -32,4 +32,7 @@ return new Promise((resolve, reject) => {
 			});
 		});
 })
+/*Thoughts:
+-What if I make it generate a new array every time and give it a timestamp myself instead of relying on 'last_updated'?
 
+*/

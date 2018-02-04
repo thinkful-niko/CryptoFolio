@@ -145,7 +145,6 @@ exports.getCoins = function(req, res, next) {
         var data = result;
 
         data.forEach(item => index[item.id] = item);
-        console.log("LATEST:",Object.values(index));
         let unique = Object.values(index);
       
         Entry.find().exec().then(entryResult => {
@@ -153,7 +152,8 @@ exports.getCoins = function(req, res, next) {
                 entry: entryResult,
                 allData: result,
                 historicalData: makeHistoricalDataChart(result, entryResult),
-                unique: unique
+                unique: unique,
+                userId: req.user.id
             });
         }).catch(err => {throw err});
 
@@ -184,7 +184,7 @@ exports.getLatestCoins = function(req, res, next) {
 function makeHistoricalDataChart(result, entryResult){
     // console.log("Make Historical Data:",result);
     let historicalData = [result, result, result, result, result, result];//This will be replaced by an array with different snapshots of coinDB collection
-    console.log('RESULT:', result);
+   // console.log('RESULT:', result);
     let chartData = [];
     historicalData.forEach((hD, i)=>{ //all coindb arrays being looped
         let UNIX = Number(hD[0].last_updated + '000'); //Correct UNIX timestamp and make it a number
@@ -205,7 +205,7 @@ function makeHistoricalDataChart(result, entryResult){
         });
         chartData.push(chartPoint); 
     })
-    console.log("THIS IS CHARDATA:",chartData);
+    //console.log("THIS IS CHARDATA:",chartData);
     return chartData;//chart data is an array of objects [{BTC: value of BTC, date: X ETH: value of ETH}, {... ,date: X+1, ...}]. The value of each repeated entry is added.
     // go to chart.js to add the key values, create a loop (map) that does it all by itself.
 }

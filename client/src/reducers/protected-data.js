@@ -9,8 +9,8 @@ const initialState = {
     yourCoins: [],
     chartData: [],
     unique: [],
-    randomColor: []
-
+    randomColor: [],
+    userId: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -34,6 +34,7 @@ export default function reducer(state = initialState, action) {
             }
         //Renders Initial State and sets data to all data from the db
         case FETCH_PROTECTED_DATA_SUCCESS:
+            //Generates random color for the <chart />. Placed here to avoid re-rendering colors on state changes.
             let randomColorArr=[];
             for (let i = 0; i<52; i++){
                 let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
@@ -48,7 +49,8 @@ export default function reducer(state = initialState, action) {
                 yourCoins: [...action.entry],
                 chartData: [...action.historicalData],
                 unique: [...action.unique],
-                randomColor: [...randomColorArr]
+                randomColor: [...randomColorArr],
+                userId: action.userId
             }
         case FETCH_PROTECTED_DATA_ERROR:
             return{

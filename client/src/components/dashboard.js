@@ -55,7 +55,7 @@ export class Dashboard extends React.Component {
         -Send Historical Data to reducer, so recharts can handle it.
 */
     addToList = () => {
-        console.log("!ADD TO LIST!",this);
+        console.log("!ADD TO LIST!",this.state.coinData);
         this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.chartData));
         this.props.dispatch(saveCoinData(this.state.coinData));
     }
@@ -66,20 +66,33 @@ export class Dashboard extends React.Component {
             return <Redirect to="/" />; 
         }
 
-        //Adds user amounts together if user adds duplicate coin.
-        let result = [] 
+    //User Unique Info Renderer Handler
+    //PROBLEM YOU ALSO HAVE TO FILTER this.props.chartData
+        let userCoins = []
         this.props.yourCoins.forEach((coin)=>{
-            //console.log(coin.id)
-            for(var r=0; r<result.length; r++){
-
-              if(result[r].id == coin.id){// duplicate
-                result[r]['amount'] += Number(coin.amount);
-                result[r]['price_usd'] += Number(coin.price_usd);
+            if(coin.userId === this.props.userId){
+                console.log('USER COIN:', coin);
+                userCoins.push(coin);
+            }else{
                 
-                return;
-              }
             }
-            result.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd)})
+        });
+        /*WILL ALSO FILTER THROUGH USERIDs AND RENDER ONLY THE DATA FOR THE LOGGED USER
+        -If coin.userId === ????.userID
+        -Adds user amounts together if user adds duplicate coin.*/
+        let result = [] 
+        userCoins.forEach((coin)=>{
+            //console.log(coin.id)
+            
+                for(var r=0; r<result.length; r++){
+            
+                    if(result[r].id == coin.id){// if duplicate
+                        result[r]['amount'] += Number(coin.amount); //add amounts
+                        return;
+                    }
+                }
+
+            result.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd), userId: coin.userId})
         })
 
 
@@ -89,12 +102,12 @@ export class Dashboard extends React.Component {
         //    // return {Project: currentGroup, Hours: groups[currentGroup]};
         // });
 
-        let yourCoins =  
+        let yourCoins = 
         result.map((item, index)=>{
             return <Table coin={item} key={index}/>
         })  
 
-        console.log("STATE Render:",this.state, "PROP Render:", this.prop,this.props.data, this.props.yourCoins);
+        console.log("RESULT Render:",result, "PROP Render:", this.props);
 
         return (
             <div className="dashboard">
@@ -102,7 +115,7 @@ export class Dashboard extends React.Component {
                     <div className="totalDisplay">
                         <h1>Potfolio Value</h1>
                         <div className="totalValue">
-                            <Total coins={this.props.yourCoins}/>
+                            <Total coins={userCoins}/>
                         </div>
                         <div className="percentChange"><p>+10.05% Change(24hrs)</p></div>
                     </div>
@@ -166,7 +179,8 @@ const mapStateToProps = state => {
         yourCoins : state.protectedData.yourCoins,
         chartData: state.protectedData.chartData,
         unique: state.protectedData.unique,
-        randomColor: state.protectedData.randomColor
+        randomColor: state.protectedData.randomColor,
+        userId: state.protectedData.userId
     };
 };
 
