@@ -12,11 +12,13 @@ export const fetchProtectedDataSuccess = (data, entry, historicalData, unique, u
     userId
 });
 
-export const pushEntryToState = (data, entry, historicalData) => ({
+export const pushEntryToState = (data, entry, historicalData, userId) => ({
     type: 'PUSH_ENTRY_TO_STATE',
     data,
     entry,
-    historicalData
+    historicalData,
+    userId
+
 });
 
 export const FETCH_PROTECTED_DATA_ERROR = 'FETCH_PROTECTED_DATA_ERROR';
