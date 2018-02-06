@@ -26,7 +26,7 @@ export default function reducer(state = initialState, action) {
             console.log('ADDED COINS:',yourCoinsArr);
 
             let addUniqueCoins = [];
-//PROBLEMATIC ---->Handles Unique Coins What if multiple users are logged in and they add coins? For some reason this is not triggering a render
+//PROBLEMATIC ---->Handles Unique Coins What if multiple users are logged in and they add coins (it should be fine, because it doesnt update over the server)? For some reason this is not triggering a render
             // yourCoinsArr.forEach((coin)=>{
             //     if(coin.userId === action.userId){
             //         console.log('User Ids:', coin)

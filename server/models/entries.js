@@ -10,7 +10,8 @@ const EntrySchema = new Schema({
      percent_change_24h: String,
      last_updated: String,
      userId: String,
-     amount: String
+     amount: String,
+     timeStampDate: String
 });
 
 module.exports = mongoose.model('Entry', EntrySchema);

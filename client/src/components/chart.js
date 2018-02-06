@@ -8,6 +8,7 @@ const Chart = (props) => {
 
 	//Preparing key for 'datKey' in <Area /> component.
 	let keyObj = props.data[0]; //get one object
+	console.log('keyObj:', keyObj);
 	let keysArr = [];
 
 	let i=0; //to loop later
@@ -28,6 +29,7 @@ const Chart = (props) => {
 
 	let AreaChartElement = props.data.map((item, index)=>{
 		let oneKey = keysArr[i]; //sets the key to one of the array
+		console.log(oneKey);
 		i++; //changes key
             return <Area type='monotone' dataKey={oneKey} stroke={randomStroke[i]} fill={randomStroke[i]} />
         })

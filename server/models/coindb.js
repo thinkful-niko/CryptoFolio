@@ -8,7 +8,8 @@ const CryptoCoinsSchema = new Schema({
     price_usd: String,
     price_btc: String,
     last_updated: String,
-    percent_change_24h: String
+    percent_change_24h: String,
+    timeStampDate: String
 
 });
 
