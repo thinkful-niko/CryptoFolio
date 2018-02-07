@@ -24,7 +24,7 @@ export class Dashboard extends React.Component {
             return;
         }
         this.props.dispatch(getCoinData());
-        console.log('CHARTDATA2:',this.props.chartData);
+        console.log('UNIQUE2:',this.props.unique);
     }
 
 //State holds the selected coin data after the user input.

@@ -73,7 +73,7 @@ export default function reducer(state = initialState, action) {
                 randomColorArr.push(randomColor);
             }
             console.log('FETCH action',action)
-            console.log(JSON.stringify(action.historicalData));
+            console.log(JSON.stringify('HISTORICALDATA', action.historicalData));
 
             //Initiate yourCoins with coins filtered by UserID
             let allEntries = [...action.entry];
@@ -84,13 +84,13 @@ export default function reducer(state = initialState, action) {
                 };
             })
             console.log('USER UNIQUE',userUniqueEntries);
-
+            console.log('UNIQUE Reducer', ...action.unique);
             return {
                 ...state,
                 data: [...action.data],
                 error: null,
                 yourCoins: [...userUniqueEntries],
-                chartData: [...action.historicalData],
+                //chartData: [...action.historicalData],
                 unique: [...action.unique],
                 randomColor: [...randomColorArr],
                 userId: action.userId
