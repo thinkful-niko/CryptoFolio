@@ -121,7 +121,7 @@ export class Dashboard extends React.Component {
 
                     <div className="chartDisplay">
                         <div className="chart">
-                            <Chart data={this.props.chartData} colorRandom={this.props.randomColor} />
+                            <Chart data = {this.props.chartData} colorRandom = {this.props.randomColor} userCoins = {this.props.yourCoins}/>
                         </div>
                         <div className="selectors">
                             <h1>View Coins:</h1>

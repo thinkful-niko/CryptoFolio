@@ -20,7 +20,7 @@ return new Promise((resolve, reject) => {
 			let monthDate = date.getMonth()+1;
 			let yearDate = date.getFullYear();
 			let hoursDate = date.getHours();
-			let timeStampDate = monthDate +'-'+ dayDate +'-'+ yearDate + ' hours: ' + hoursDate;
+			let timeStampDate = monthDate +'-'+ dayDate +'-'+ yearDate;
 
 			let daysToDeletion = 1;
 			let deletionDate = new Date(date.setDate(date.getDate() - daysToDeletion))/1000;
