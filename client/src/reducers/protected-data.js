@@ -35,6 +35,8 @@ export default function reducer(state = initialState, action) {
             // })
 
             let result = [] 
+
+            //This stopped working, probably something to do with result being empty
             yourCoinsArr.forEach((coin)=>{
                 //console.log(coin.id)
                 
@@ -42,6 +44,7 @@ export default function reducer(state = initialState, action) {
                 
                         if(result[r].id == coin.id){// if duplicate
                             result[r]['amount'] += Number(coin.amount); //add amounts
+                            console.log('ADDED', coin.id);
                             return;
                         }
                     }
