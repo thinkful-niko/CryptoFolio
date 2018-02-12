@@ -27,6 +27,10 @@ export const fetchProtectedDataError = error => ({
     error
 });
 
+export const createColors = () => ({
+    type: 'CREATE_COLORS'
+})
+
 export const getCoinData = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/coinData`, {

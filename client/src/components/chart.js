@@ -85,6 +85,7 @@ const Chart = (props) => {
 			}
 			userCoins.forEach((singleUserCoin, index)=>{
 				if(singleUserCoin.symbol == key){
+					console.log('VALUE');
 					newObj[key] = Number(pointObj[key])*singleUserCoin.amount;
 				}
 			})
@@ -101,13 +102,13 @@ const Chart = (props) => {
 		}
 
 		let AreaChartCreation = keysArr.map((key, index) => {
-			randomStroke = props.colorRandom[Math.floor(Math.random()*100)];
+			randomStroke = props.colorRandom[index];
 			return <Area type='monotone' dataKey={key} stackId={index} stroke={randomStroke} fill={randomStroke} />
 		})
 
 
 	return(
-		<AreaChart width={(window.innerWidth/100)*60} height={(window.innerHeight/100)*60} data={chartPointsArr}
+		<AreaChart width={(window.innerWidth/100)*60} height={(window.innerHeight/100)*60} data={userChartDataArr}
         margin={{top: 30, right: 30, left: 30, bottom: 0}}>
             <XAxis dataKey="date"/>
             <YAxis/>

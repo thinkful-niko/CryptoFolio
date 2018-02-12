@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
-import {fetchProtectedData, getCoinData, addCoinToList, pushEntryToState} from '../actions/protected-data';
+import {fetchProtectedData, getCoinData, addCoinToList, pushEntryToState, createColors} from '../actions/protected-data';
 import { saveCoinData } from '../actions/addNew';
 import './Dashboard.css';
 import Table from './table';
@@ -23,7 +23,9 @@ export class Dashboard extends React.Component {
         if (!this.props.loggedIn) {
             return;
         }
+        this.props.dispatch(createColors());
         this.props.dispatch(getCoinData());
+
         console.log('UNIQUE2:',this.props.unique);
     }
 

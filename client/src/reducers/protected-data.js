@@ -68,13 +68,7 @@ export default function reducer(state = initialState, action) {
             }
         //Renders Initial State and sets data to all data from the db
         case FETCH_PROTECTED_DATA_SUCCESS:
-            //Generates random color for the <chart />. Placed here to avoid re-rendering colors on state changes.
-            //THERE HAS TO BE A BETTER PLACE TO CODE THE RANDOM COLOR, also their randomness is in very close ranges (sometimes resulting in similar colors).
-            let randomColorArr=[];
-            for (let i = 0; i<100; i++){
-                let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-                randomColorArr.push(randomColor);
-            }
+            
             console.log('FETCH action',action)
             console.log(JSON.stringify('HSD', ...action.historicalData));
 
@@ -86,16 +80,36 @@ export default function reducer(state = initialState, action) {
                     userUniqueEntries.push(coin);
                 };
             })
+            let userCoinsArr = userUniqueEntries;
+            let addedResult = [] 
+
+            //This stopped working, probably something to do with result being empty
+            userCoinsArr.forEach((coin)=>{
+                //console.log(coin.id)
+                
+                    for(var h=0; h<addedResult.length; h++){
+                
+                        if(addedResult[h].id == coin.id){// if duplicate
+                            addedResult[h]['amount'] += Number(coin.amount); //add amounts
+                            console.log('ADDED', coin.id);
+                            return;
+                        }
+                    }
+
+                addedResult.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd), userId: coin.userId})
+            })
+
+
+
             console.log('USER UNIQUE',userUniqueEntries);
             console.log('UNIQUE Reducer', ...action.unique);
             return {
                 ...state,
                 data: [...action.data],
                 error: null,
-                yourCoins: [...userUniqueEntries],
+                yourCoins: [...addedResult],
                 chartData: [...action.historicalData],
                 unique: [...action.unique],
-                randomColor: [...randomColorArr],
                 userId: action.userId
             }
 
@@ -103,6 +117,16 @@ export default function reducer(state = initialState, action) {
             return{
                 ...state,
                 error: action.error
+            }
+        case 'CREATE_COLORS':
+            let randomColorArr=[];
+            for (let i = 0; i<100; i++){
+                let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                randomColorArr.push(randomColor);
+            }
+            return {
+                ...state,
+                randomColor: [...randomColorArr]
             }
         default:
             return state
