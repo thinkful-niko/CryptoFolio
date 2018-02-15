@@ -64,7 +64,6 @@ export default function reducer(state = initialState, action) {
                 // data: action.data,
                 error: null,
                 yourCoins: [...result],
-                chartData: [...chartDataUpdate]
             }
         //Renders Initial State and sets data to all data from the db
         case FETCH_PROTECTED_DATA_SUCCESS:

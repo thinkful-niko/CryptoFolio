@@ -22,50 +22,7 @@ const Chart = (props) => {
 	let randomStroke;
 	console.log(randomStroke); //Randomize the color index randomStroke[Math.Random()*TotalIndex];
 
-//Once the synch problem is solved, this will become props.data
 	let chartPointsArr = props.data;
-	/*[ 
-		{ 
-			date: '2-6-2018',
-		    BTC: 7822.27,
-		    ETH: 796.439,
-		    XRP: '0.785328',
-		    BCH: '978.912',
-		    ADA: '0.376101',
-		    LTC: '144.496',
-	    	NEO: '107.264' 
-		},
-	  	{ 
-	  		date: '2-7-2018',
-		    BTC: 8279.09,
-		    ETH: 834.642,
-		    XRP: '0.778804',
-		    BCH: '1024.12',
-		    ADA: '0.356802',
-		    LTC: '151.572',
-		    NEO: '115.092' 
-		},
-		{ 
-	  		date: '2-8-2018',
-		    BTC: 5279.09,
-		    ETH: 6234.642,
-		    XRP: '0.778804',
-		    BCH: '1024.12',
-		    ADA: '0.356802',
-		    LTC: '151.572',
-		    NEO: '95.092' 
-		},
-		{ 
-	  		date: '2-9-2018',
-		    BTC: 6279.09,
-		    ETH: 9234.642,
-		    XRP: '0.778804',
-		    BCH: '1024.12',
-		    ADA: '0.356802',
-		    LTC: '151.572',
-		    NEO: '155.092' 
-		}  
-	];*/
 
 	let userCoins = props.userCoins;
 
