@@ -11,7 +11,7 @@ mongoose.connect('mongodb://nicolaskao:1234@ds119088.mlab.com:19088/cryptofolio'
 return new Promise((resolve, reject) => {
 	console.log('Data fecthed');
 		request({
-			url: `https://api.coinmarketcap.com/v1/ticker/?limit=7`,
+			url: `https://api.coinmarketcap.com/v1/ticker/?limit=100`,
 			json: true
 		}, (error, response, body) => {
 			//Delete old data that is 'daysToDeletion' days old.
@@ -29,44 +29,25 @@ return new Promise((resolve, reject) => {
 			let snapshotArr = [];
 			let snapshotObj = {};
 
-			Coin.remove({}, function(){
-
+			Coin.find({}, function(err, res){
+				console.log('THIS IS RES', res, 'THIS IS RES');
 				snapshotObj['date'] = timeStampDate;
 				//Later on, coin and snapshot will be separated, coin will be self clearing with a remove({}) before a call is made.
-				for (i=0; i<body.length; i++){
-					let coin = new Coin(
-						body[i]
-					);
-					coin.timeStampDate = date;
-					console.log('COIN:', coin.id, 'COIN');
-					arr.push(coin.save());
+				for (i=0; i<res.length; i++){
+					let coin = res[i];
 
 					//This needs to be an object with all coins and the date
 					snapshotObj[coin.symbol] = coin.price_usd;
 					//close db connection
-					Promise.all(arr).then(() => {
-						mongoose.connection.close();
-					});
+					
 				}
 				//I want to push an array inside of the existing mongo array.
 				snapshotArr.push(snapshotObj);
 
-				// Snapshot.chartPoint.push(snapshotArr);
-				// Snapshot.save();
-
-				Snapshot.update(
-					{ "_id" : ObjectId("5a7a24a4e39cd8385477c9f6") }, 
-				    { $push: { chartPoint:snapshotArr } })
-					.exec().then(callback => {}).catch(err => {throw err});
-
-
-				/*
-					-If ( Snapshot.chartPoint.lenght > X )
-					-shift
-
-				*/
-				let toBeUpdatedArr = [];
+				//Push new snap array into document, clear 'snapAmount' from document (old snaps).
 				Snapshot.findOne({}, function (err, snapshot) {
+
+					snapshot.chartPoint.push(snapshotArr)
 
 					console.log('SNAP UPDATE', snapshot.chartPoint.length);
 					let snaplLength = snapshot.chartPoint.length;
@@ -76,7 +57,6 @@ return new Promise((resolve, reject) => {
 					// if (snapshot.chartPoint.length >= snapAmount){
 					let removedSnap = snapshot.chartPoint.splice(0, snapShiftDiff);
 					console.log('New', snapshot.chartPoint);
-					toBeUpdatedArr = snapshot.chartPoint;
 
 					snapshot.save(function (err) {
 				        if(err) {
@@ -88,15 +68,10 @@ return new Promise((resolve, reject) => {
 
 
 				console.log('COMPLETED:', [snapshotArr]);
+
 			});
 
-			// Snapshot.remove({last_updated:{$lt: deletionDate}}, function(){
-			// 	let snapshot = new Snapshot({
-			// 		'date': timeStampDate,
-			// 		'chartPoint': snapshotArr
-			// 	});
-				
-			// });
+
 })
 	})
 		
@@ -109,4 +84,18 @@ return new Promise((resolve, reject) => {
 -obj.chartPoint[0] = snapshot array
 -obj.chartPoint[0][0] = object inside snapshot
 -maybe send this to user controllers and add amounts there, so it's made on the server side
+
+
+
+-Add 100 coins to Coin Collection every 10 minutes and clear the old document
+-Create Snapshot with coin.symbol and coin.price_usd
+
+
+
+
+
+
+
+
+
 */
