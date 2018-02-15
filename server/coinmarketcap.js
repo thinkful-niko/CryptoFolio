@@ -29,7 +29,7 @@ return new Promise((resolve, reject) => {
 			let snapshotArr = [];
 			let snapshotObj = {};
 
-			Coin.remove({last_updated:{$lt: deletionDate}}, function(){
+			Coin.remove({}, function(){
 
 				snapshotObj['date'] = timeStampDate;
 				//Later on, coin and snapshot will be separated, coin will be self clearing with a remove({}) before a call is made.
@@ -60,12 +60,33 @@ return new Promise((resolve, reject) => {
 					.exec().then(callback => {}).catch(err => {throw err});
 
 
-				//Snapshot.findById('5a7a24a4e39cd8385477c9f6'}, {$push:{chartPoint:snapshotArr}});
+				/*
+					-If ( Snapshot.chartPoint.lenght > X )
+					-shift
 
-				// let snapshot = new Snapshot({
-				// 	'chartPoint': [snapshotArr]
-				// });
-				//Snapshot.save();
+				*/
+				let toBeUpdatedArr = [];
+				Snapshot.findOne({}, function (err, snapshot) {
+
+					console.log('SNAP UPDATE', snapshot.chartPoint.length);
+					let snaplLength = snapshot.chartPoint.length;
+					let snapAmount = 150;
+					let snapShiftDiff = snapshot.chartPoint.length - snapAmount;
+
+					// if (snapshot.chartPoint.length >= snapAmount){
+					let removedSnap = snapshot.chartPoint.splice(0, snapShiftDiff);
+					console.log('New', snapshot.chartPoint);
+					toBeUpdatedArr = snapshot.chartPoint;
+
+					snapshot.save(function (err) {
+				        if(err) {
+				            console.error('ERROR!');
+				        }});
+					//}
+				});
+				
+
+
 				console.log('COMPLETED:', [snapshotArr]);
 			});
 

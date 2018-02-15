@@ -2,8 +2,8 @@
 -You are running into Asynch problems, chart data doesn't always load correctly, you have to make the client wait for the server to do its thing.
 
 Processing Data:
-	-Loop through array of objects
-	-Loop through its objects
+	-Loop through array of objects (main historical data)
+	-Loop through its objects (snapshots)
 	-Loop through user coins and match with each object inside original array
 	-Output new array of objects with: date, price*amount, containing only user coins.
 
@@ -23,7 +23,8 @@ const Chart = (props) => {
 	console.log(randomStroke); //Randomize the color index randomStroke[Math.Random()*TotalIndex];
 
 //Once the synch problem is solved, this will become props.data
-	let chartPointsArr = [ 
+	let chartPointsArr = props.data;
+	/*[ 
 		{ 
 			date: '2-6-2018',
 		    BTC: 7822.27,
@@ -64,7 +65,7 @@ const Chart = (props) => {
 		    LTC: '151.572',
 		    NEO: '155.092' 
 		}  
-	];
+	];*/
 
 	let userCoins = props.userCoins;
 

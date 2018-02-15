@@ -53,3 +53,5 @@ export const getCoinData = () => (dispatch, getState) => {
         });
         
 };
+
+//export const removeUserCoin = () => (id) => {};

@@ -27,6 +27,9 @@ router.post('/refresh', passport.authenticate('jwt', {session: false}), AuthCont
 //Add Entry
 router.post('/addCoin', [passport.authenticate('jwt', {session: false}), jsonParser],UsersController.addEntry);
 
+//Remove Entry
+//router.delete('/remove/:id', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.removeEntry);
+
 //Coin Data
 router.get('/coinData', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.getCoins);
 // router.get('/latestCoinData', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.getLatestCoins);

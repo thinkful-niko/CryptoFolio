@@ -140,17 +140,25 @@ exports.register = function(req, res, next) {
         });
 };
 
+/*Remove Entry
+ exports.removeEntry = function(req, res, next) {
+    Entry.findOneAndRemove({_id:})
+    -Get ID
+    -Validate ID
+    -Remove by ID
+ }
+ */
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
-    console.log('sweet potato', req.body);
+    console.log('addEntry Called', req.body);
     let entry = new Entry(req.body);
     entry['userId'] = req.user.id;
     entry.save();
 };
 
 exports.getCoins = function(req, res, next) {
-    console.log('sweet potato 3');
+    console.log('getCoins Called');
     Coin.find().exec().then(result => {
         var index = {};
         var data = result;
@@ -158,6 +166,8 @@ exports.getCoins = function(req, res, next) {
         data.map(item => index[item.id] = item);
         let unique = Object.values(index);
         // console.log('UNIQUE',unique, 'UNIQUE');
+        
+//historicalSnapshots has to be populates BEFORE getCoins()
         let historicalSnapshots=[];
 
 //This needs to synch better.
@@ -167,25 +177,45 @@ exports.getCoins = function(req, res, next) {
               historicalSnapshots.push(element[0])
             });
             console.log(historicalSnapshots);
+            
+            Entry.find({
+                userId: req.user.id
+            }).exec().then(entryResult => {
+                //filter by user id
+                //console.log('UNIQUE2',unique, 'UNIQUE2');
+                //if(historicalSnapshots !=[]){
+                    return res.json({
+                        entry: entryResult,
+                        allData: result,
+                        historicalData: historicalSnapshots,
+                        unique: unique,
+                        userId: req.user.id
+                    });
+                //}
+            }).catch(err => {
+                throw err
+            })
+
+
         }).catch(err => {throw err});
 
-        Entry.find({
-            userId: req.user.id
-        }).exec().then(entryResult => {
-            //filter by user id
-            //console.log('UNIQUE2',unique, 'UNIQUE2');
-            //if(historicalSnapshots !=[]){
-                return res.json({
-                    entry: entryResult,
-                    allData: result,
-                    historicalData: historicalSnapshots,
-                    unique: unique,
-                    userId: req.user.id
-                });
-            //}
-        }).catch(err => {
-            throw err
-        });
+        // Entry.find({
+        //     userId: req.user.id
+        // }).exec().then(entryResult => {
+        //     //filter by user id
+        //     //console.log('UNIQUE2',unique, 'UNIQUE2');
+        //     //if(historicalSnapshots !=[]){
+        //         return res.json({
+        //             entry: entryResult,
+        //             allData: result,
+        //             historicalData: historicalSnapshots,
+        //             unique: unique,
+        //             userId: req.user.id
+        //         });
+        //     //}
+        // }).catch(err => {
+        //     throw err
+        // });
 
     }).catch(err => {
         throw err
@@ -196,8 +226,6 @@ exports.getYourCoins = function(req, res, next) {
     console.log('getYourCoins');
 
 };
-
-
 
 exports.getLatestCoins = function(req, res, next) {
     console.log('getLatestCoins');
@@ -424,32 +452,3 @@ let chartData = [];
     //     // return chartData;//chart data is an array of objects [{BTC: value of BTC, date: X ETH: value of ETH}, {... ,date: X+1, ...}]. The value of each repeated entry is added.
     //     // go to chart.js to add the key values, create a loop (map) that does it all by itself.
     // }
-
-    //  
-    // ADA
-    // :
-    // 3.026926
-    // BCH
-    // :
-    // 5811.02
-    // BTC
-    // :
-    // 424813.52
-    // ETH
-    // :
-    // 16854.15
-    // LTC
-    // :
-    // 447.54599999999994
-    // NEO
-    // :
-    // 535.88
-    // XLM
-    // :
-    // 0.378133
-    // XRP
-    // :
-    // 408.087
-    // date
-    // :
-    // "2018-02-05"
