@@ -1,5 +1,4 @@
-//This file is scheduled to run every 10 minutes on Heroku with a free plugin called 'Heroku Scheduler'.
-//It will make API requests to CoinMarketCap creating snapshots and deleting the ones that are X days old, creating Historical Data for the charts.
+//This file is scheduled to run every day and create a Snapshot of all coin prices to be used as Historical Data (in the chart component).
 const request = require('request');
 const Coin = require('./models/coindb');
 const Snapshot = require ('./models/snapshot');
@@ -14,7 +13,7 @@ return new Promise((resolve, reject) => {
 			url: `https://api.coinmarketcap.com/v1/ticker/?limit=100`,
 			json: true
 		}, (error, response, body) => {
-			//Delete old data that is 'daysToDeletion' days old.
+			//Creates Js timestamp so snapshots are consistent 
 			let date = new Date();
 			let dayDate = date.getDate();
 			let monthDate = date.getMonth()+1;
@@ -51,7 +50,8 @@ return new Promise((resolve, reject) => {
 
 					console.log('SNAP UPDATE', snapshot.chartPoint.length);
 					let snaplLength = snapshot.chartPoint.length;
-					let snapAmount = 150;
+					//Limit of chartPoints, if the array overflows 'snapAmount' it will splice off the old snaps that are overflowing it.
+					let snapAmount = 365;
 					let snapShiftDiff = snapshot.chartPoint.length - snapAmount;
 
 					// if (snapshot.chartPoint.length >= snapAmount){

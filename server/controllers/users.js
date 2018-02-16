@@ -160,23 +160,22 @@ exports.addEntry = function(req, res, next) {
 exports.getCoins = function(req, res, next) {
     console.log('getCoins Called');
     Coin.find().exec().then(result => {
+        //console.log('RESULT:', result, '<-RESULT')
         var index = {};
         var data = result;
         //console.log('ZEBRA:',result,'DOG');
         data.map(item => index[item.id] = item);
         let unique = Object.values(index);
-        // console.log('UNIQUE',unique, 'UNIQUE');
+        console.log('UNIQUE',unique, 'UNIQUE');
         
 //historicalSnapshots has to be populates BEFORE getCoins()
         let historicalSnapshots=[];
 
 //This needs to synch better.
         Snapshot.find().exec().then(snapshot => {
-            console.log('snap',snapshot[0].chartPoint)
             snapshot[0].chartPoint.forEach( element => {
               historicalSnapshots.push(element[0])
             });
-            console.log(historicalSnapshots);
             
             Entry.find({
                 userId: req.user.id

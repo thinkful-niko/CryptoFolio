@@ -71,8 +71,22 @@ export default function reducer(state = initialState, action) {
             console.log('FETCH action',action)
             console.log(JSON.stringify('HSD', ...action.historicalData));
 
+
             //Initiate yourCoins with coins filtered by UserID
+
             let allEntries = [...action.entry];
+            console.log('ALLENTRIES', allEntries, 'UNIQUE',action.unique);
+
+            //Update prices on user coins with current prices
+            action.unique.forEach((allDataCoin) => {
+                allEntries.forEach((userSingleCoin) => {
+                    if (userSingleCoin.id == allDataCoin.id){
+                        console.log('THIS COIN', userSingleCoin.price_usd);
+                        userSingleCoin.price_usd = allDataCoin.price_usd;
+                    }
+                })
+            })
+
             let userUniqueEntries = [];
             allEntries.forEach(coin=>{
                 if(coin.userId === action.userId){
@@ -82,7 +96,6 @@ export default function reducer(state = initialState, action) {
             let userCoinsArr = userUniqueEntries;
             let addedResult = [] 
 
-            //This stopped working, probably something to do with result being empty
             userCoinsArr.forEach((coin)=>{
                 //console.log(coin.id)
                 
@@ -90,7 +103,6 @@ export default function reducer(state = initialState, action) {
                 
                         if(addedResult[h].id == coin.id){// if duplicate
                             addedResult[h]['amount'] += Number(coin.amount); //add amounts
-                            console.log('ADDED', coin.id);
                             return;
                         }
                     }
@@ -104,7 +116,7 @@ export default function reducer(state = initialState, action) {
             console.log('UNIQUE Reducer', ...action.unique);
             return {
                 ...state,
-                data: [...action.data],
+                data: [...action.unique],
                 error: null,
                 yourCoins: [...addedResult],
                 chartData: [...action.historicalData],
