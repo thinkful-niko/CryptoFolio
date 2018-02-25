@@ -125,10 +125,10 @@ export class Dashboard extends React.Component {
                         <div className="chart">
                             <Chart data = {this.props.chartData} colorRandom = {this.props.randomColor} userCoins = {this.props.yourCoins}/>
                         </div>
-                        <div className="selectors">
+                        {/*<div className="selectors">
                             <h1>View Coins:</h1>
                             <input type="radio" name="coin" value="BitCoin" /> BitCoin
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             </div>
