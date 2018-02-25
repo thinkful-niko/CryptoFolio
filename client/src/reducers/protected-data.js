@@ -54,11 +54,11 @@ export default function reducer(state = initialState, action) {
 
 
 
-            console.log('ADD UNIQUE COINS:',...addUniqueCoins)
-            let dummyData = action.historicalData;
-            let chartDataUpdate = action.historicalData;
-            chartDataUpdate.push(...dummyData);
-            console.log(`ADDED lastEntry = ${lastEntry} TO yourCoinsArr = ${yourCoinsArr} HISTORICAL = ${chartDataUpdate}`);
+            //console.log('ADD UNIQUE COINS:',...addUniqueCoins)
+            // let dummyData = action.historicalData;
+            // let chartDataUpdate = action.historicalData;
+            // chartDataUpdate.push(...dummyData);
+            // console.log(`ADDED lastEntry = ${lastEntry} TO yourCoinsArr = ${yourCoinsArr} HISTORICAL = ${chartDataUpdate}`);
             return {
                 ...state,
                 // data: action.data,
@@ -112,8 +112,9 @@ export default function reducer(state = initialState, action) {
 
 
 
-            console.log('USER UNIQUE',userUniqueEntries);
-            console.log('UNIQUE Reducer', ...action.unique);
+            // console.log('USER UNIQUE',userUniqueEntries);
+            // console.log('UNIQUE Reducer', ...action.unique);
+            console.log('ACTION:', action);
             return {
                 ...state,
                 data: [...action.unique],

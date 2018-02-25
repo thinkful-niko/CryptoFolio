@@ -59,7 +59,7 @@ export class Dashboard extends React.Component {
 */
     addToList = () => {
         console.log("!ADD TO LIST!",this.state.coinData, this.props.userId);
-        this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.chartData, this.props.userId));
+        this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.userId));
         this.props.dispatch(saveCoinData(this.state.coinData));
     }
 

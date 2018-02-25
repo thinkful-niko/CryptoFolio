@@ -164,3 +164,16 @@ th{
 	position: relative;
 	left: 20px;
 }
+
+.deleteCoin{
+	position: relative;
+	right: 40px;
+	font-weight: 700;
+}
+.deleteCoin a{
+	text-decoration: none;
+	color: red;
+}
+.deleteCoin:hover{
+	cursor: pointer;
+}

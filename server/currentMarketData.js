@@ -30,7 +30,6 @@ return new Promise((resolve, reject) => {
 						body[i]
 					);
 					coin.timeStampDate = date;
-					console.log('COIN:', coin.id, 'COIN');
 					arr.push(coin.save());
 
 
