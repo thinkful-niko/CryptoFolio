@@ -28,7 +28,7 @@ router.post('/refresh', passport.authenticate('jwt', {session: false}), AuthCont
 router.post('/addCoin', [passport.authenticate('jwt', {session: false}), jsonParser],UsersController.addEntry);
 
 //Remove Entry- Not sure how to hanlde this in the controler, is /:id/:coin correct?
-//router.delete('/delete/:id/:coin', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.removeEntry);
+router.delete('/remove', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.removeEntry);
 
 //Coin Data
 router.get('/coinData', [passport.authenticate('jwt', {session: false}), jsonParser], UsersController.getCoins);

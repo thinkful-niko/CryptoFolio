@@ -22,7 +22,7 @@ const Chart = (props) => {
 
 	console.log('CHARTDATA',chartPointsArr)
 
-	//NEW HIGH EFFICIENCY LOOP, it loops only twice and never loops through the object, it matches symbol through a dynamic object key '[coinSymbol]'
+	//NEW LOOP: it loops only twice and never loops through the object, it matches user symbols through a dynamic object key '[coinSymbol]'
 	//For EACH snapshot:
 	for(let dD = 0; dD < chartPointsArr.length; dD++){
 		//Create an object (user unique snapshot)
@@ -39,7 +39,6 @@ const Chart = (props) => {
 	  	}
 	  	//construct the user unique snapshot array (userChartDataArr)
 	  	userChartDataArr.push(newObj);
-	  	console.log(newObj);
 	}
 		//Construct keys array to be used as dataKey atribute for recharts, removing 'date' from this array
 		for (let singleKey in userChartDataArr[0]){
@@ -51,7 +50,7 @@ const Chart = (props) => {
 //Creating chart. It only needs to create one <Area /> per key, not per object. But, it doesn't accepts loops, you need to create an array with the keys then map it to create each <Area />
 		let AreaChartCreation = keysArr.map((key, index) => {
 			randomStroke = colorArr[index];
-			return <Area type='monotone' dataKey={key} stackId={index} stroke={randomStroke} fill={randomStroke} />
+			return <Area type='monotone' dataKey={key} stackId={index} stroke={randomStroke} fill='none' />
 		})
 
 

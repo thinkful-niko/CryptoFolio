@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
-import {fetchProtectedData, getCoinData, addCoinToList, pushEntryToState, createColors} from '../actions/protected-data';
+import {fetchProtectedData, getCoinData, addCoinToList, pushEntryToState, createColors, removeUserCoin} from '../actions/protected-data';
 import { saveCoinData } from '../actions/addNew';
 import './Dashboard.css';
 import Table from './table';
@@ -43,12 +43,13 @@ export class Dashboard extends React.Component {
         //I have to set this as a coin prop instead of using state
         this.setState(coin);
         console.log('addCoin is:', coin);
+        document.getElementById('amountHandlerInput').value = '';
     }
 
 // Fetches amount added by user and adds it to coinData in the STATE
     amountHandler = (event) =>{
         if(event.target.value < 0) {alert("Please Enter A Number");  return};
-        console.log('EVENT STATE', this.state)
+        //console.log('EVENT STATE', this.state)
         console.log(event.target.value);
         this.state.coinData.amount = event.target.value;
     }
@@ -58,9 +59,14 @@ export class Dashboard extends React.Component {
         -Send Historical Data to reducer, so recharts can handle it.
 */
     addToList = () => {
-        console.log("!ADD TO LIST!",this.state.coinData, this.props.userId);
+        //console.log("!ADD TO LIST!",this.state.coinData, this.props.userId);
         this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.userId));
         this.props.dispatch(saveCoinData(this.state.coinData));
+    }
+
+    removeUserCoinHandler = (userId, coinName) => {
+        console.log(userId, coinName);
+        this.props.dispatch(removeUserCoin(userId, coinName));
     }
 
     render() {
@@ -71,7 +77,7 @@ export class Dashboard extends React.Component {
 
         let yourCoins = 
         this.props.yourCoins.map((item, index)=>{
-            return <Table coin={item} key={index}/>
+            return <Table coin={item} key={index} removeFunction={this.removeUserCoinHandler}/>
         })  
 
         console.log("PROP Render:", this.props);

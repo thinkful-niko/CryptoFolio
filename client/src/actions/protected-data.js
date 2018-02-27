@@ -12,6 +12,11 @@ export const fetchProtectedDataSuccess = (data, entry, historicalData, unique, u
     userId
 });
 
+export const removeUserCoinSuccess = (removedData) => ({
+    type: 'REMOVE_HANDLER',
+    removedData,
+});
+
 export const pushEntryToState = (data, entry, userId) => ({
     type: 'PUSH_ENTRY_TO_STATE',
     data,
@@ -20,6 +25,7 @@ export const pushEntryToState = (data, entry, userId) => ({
     userId
 
 });
+
 
 export const FETCH_PROTECTED_DATA_ERROR = 'FETCH_PROTECTED_DATA_ERROR';
 export const fetchProtectedDataError = error => ({
@@ -50,6 +56,37 @@ export const getCoinData = () => (dispatch, getState) => {
         })
         .catch(err => {
             dispatch(fetchProtectedDataError(err));
+        });
+        
+};
+
+export const removeUserCoin = (userRemoved, coinRemove) => (dispatch, getState) => {
+    console.log(userRemove, coinRemove);
+    console.log(getState().auth.currentUser.id);
+    let userRemove = getState().auth.currentUser.id;
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/remove`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+            userID: userRemove, 
+            coinName: coinRemove
+        }),
+        headers: {
+            // Provide our auth token as credentials
+              // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+             'Accept': 'application/json, text/plain, */*',
+             'Content-Type': 'application/json'
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(res => {
+            console.log('removeUserCoin', res);
+            dispatch(removeUserCoinSuccess(res));
+        })
+        .catch(err => {
+            //dispatch(fetchProtectedDataError(err));
         });
         
 };
