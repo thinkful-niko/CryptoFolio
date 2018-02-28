@@ -43,6 +43,7 @@ export class Dashboard extends React.Component {
         //I have to set this as a coin prop instead of using state
         this.setState(coin);
         console.log('addCoin is:', coin);
+        //if values are added first you will get NaN, this resets the amount to nothing after a coin is selected.
         document.getElementById('amountHandlerInput').value = '';
     }
 
@@ -117,7 +118,7 @@ export class Dashboard extends React.Component {
 
                         </div>
                     </div>
-
+                {/*This is what shows up when you click '+ Add Coin', it's display is toggled between block or none*/}
                     <div className="addCoinMenuContainer">
                        <AddCoinMenu coins={this.props.unique} 
                        addCoinToEntry = {this.addCoinToEntry} 
