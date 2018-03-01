@@ -29,7 +29,6 @@ return new Promise((resolve, reject) => {
 			let snapshotObj = {};
 
 			Coin.find({}, function(err, res){
-				console.log('THIS IS RES', res, 'THIS IS RES');
 				snapshotObj['date'] = timeStampDate;
 				//Later on, coin and snapshot will be separated, coin will be self clearing with a remove({}) before a call is made.
 				for (i=0; i<res.length; i++){
@@ -48,7 +47,6 @@ return new Promise((resolve, reject) => {
 
 					snapshot.chartPoint.push(snapshotArr)
 
-					console.log('SNAP UPDATE', snapshot.chartPoint.length);
 					let snaplLength = snapshot.chartPoint.length;
 					//Limit of chartPoints, if the array overflows 'snapAmount' it will splice off the old snaps that are overflowing it.
 					let snapAmount = 365;
@@ -56,18 +54,13 @@ return new Promise((resolve, reject) => {
 
 					// if (snapshot.chartPoint.length >= snapAmount){
 					let removedSnap = snapshot.chartPoint.splice(0, snapShiftDiff);
-					console.log('New', snapshot.chartPoint);
 
 					snapshot.save(function (err) {
 				        if(err) {
 				            console.error('ERROR!');
 				        }});
-					//}
+
 				});
-				
-
-
-				console.log('COMPLETED:', [snapshotArr]);
 
 			});
 

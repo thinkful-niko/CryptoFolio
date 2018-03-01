@@ -5,9 +5,6 @@ const Coin = require('../models/coindb');
 
 return new Promise((resolve, reject) => {
 
-	
-
-		console.log('Data fecthed');
 		request({
 			url: `https://api.coinmarketcap.com/v1/ticker/?limit=5`,
 			json: true

@@ -1,9 +1,12 @@
-/*TODO:
--Chart data is unique to each user.
--Chart Data takes in actual historical data.
--Add Pie Chart beneath chart.
--Portfolio NetWorth e-mail Alerts.
+/*TO-DO:
+-Historical Amount Handler and Snapshots
+-E-mail Alerts
+-Portfolio Percentages
+-Diff % 
+-Google Auth
+-Transaction Journal
 */
+
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
@@ -25,8 +28,6 @@ export class Dashboard extends React.Component {
         }
         this.props.dispatch(createColors());
         this.props.dispatch(getCoinData());
-
-        console.log('UNIQUE2:',this.props.unique);
     }
 
 //State holds the selected coin data after the user input.
@@ -42,7 +43,6 @@ export class Dashboard extends React.Component {
     addCoinToEntry = (coin) => {
         //I have to set this as a coin prop instead of using state
         this.setState(coin);
-        console.log('addCoin is:', coin);
         //if values are added first you will get NaN, this resets the amount to nothing after a coin is selected.
         document.getElementById('amountHandlerInput').value = '';
     }
@@ -50,17 +50,12 @@ export class Dashboard extends React.Component {
 // Fetches amount added by user and adds it to coinData in the STATE
     amountHandler = (event) =>{
         if(event.target.value < 0) {alert("Please Enter A Number");  return};
-        //console.log('EVENT STATE', this.state)
-        console.log(event.target.value);
         this.state.coinData.amount = event.target.value;
     }
 
 // Adds user selected coin to list and saves it in the coins collection.
-/*To do:-add a warning when someone clicks the button and the 'amount' field is empty.
-        -Send Historical Data to reducer, so recharts can handle it.
-*/
+
     addToList = () => {
-        //console.log("!ADD TO LIST!",this.state.coinData, this.props.userId);
         this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.userId));
         this.props.dispatch(saveCoinData(this.state.coinData));
     }
@@ -132,10 +127,6 @@ export class Dashboard extends React.Component {
                         <div className="chart">
                             <Chart data = {this.props.chartData} colorRandom = {this.props.randomColor} userCoins = {this.props.yourCoins}/>
                         </div>
-                        {/*<div className="selectors">
-                            <h1>View Coins:</h1>
-                            <input type="radio" name="coin" value="BitCoin" /> BitCoin
-                        </div>*/}
                     </div>
                 </div>
             </div>
@@ -145,7 +136,6 @@ export class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     const {currentUser} = state.auth;
-    // console.log(currentUser);
     return {
         loggedIn: currentUser !== null,
         email: currentUser ? state.auth.currentUser.email : '',

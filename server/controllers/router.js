@@ -11,7 +11,6 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 
-console.log('Mango');
 const UsersController = require('./users');
 const AuthController = require('./auth');
 

@@ -142,11 +142,8 @@ exports.register = function(req, res, next) {
 
 //Remove Entry
  exports.removeEntry = function(req, res, next) {
-    console.log('REMOVE', req.body);
     //Find entry by user ID and remove all 'coinName'
     Entry.remove({userId:req.body.userID, id:req.body.coinName}, (err, r) => {
-        console.log(err, r.result);
-        //res.send('Deleted');
         return res.json({message: 'DELETED', id: req.body.coinName})
     })
  }
@@ -154,22 +151,18 @@ exports.register = function(req, res, next) {
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
-    console.log('addEntry Called', req.body);
+
     let entry = new Entry(req.body);
     entry['userId'] = req.user.id;
     entry.save();
 };
 
 exports.getCoins = function(req, res, next) {
-    console.log('getCoins Called');
     Coin.find().exec().then(result => {
-        //console.log('RESULT:', result, '<-RESULT')
         var index = {};
         var data = result;
-        //console.log('ZEBRA:',result,'DOG');
         data.map(item => index[item.id] = item);
         let unique = Object.values(index);
-        console.log('UNIQUE',unique, 'UNIQUE');
         
 //historicalSnapshots has to be populates BEFORE getCoins()
         let historicalSnapshots=[];
@@ -213,7 +206,6 @@ exports.getLatestCoins = function(req, res, next) {
     Coin.find().sort({
         last_updated: -1
     }).limit(7).exec().then(result => {
-        //console.log("Coin Sort",result);
         return res.json({
             latestCoins: result,
         });

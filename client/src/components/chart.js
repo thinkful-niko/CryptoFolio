@@ -10,7 +10,6 @@ const Chart = (props) => {
 	//Random colors wasn't consistent enough, switched to premade color Array;
 	let colorArr = [ '#ff0c00', '#b2b200', '#00b217', '#04a0a0', '#0422d1', '#aa08af', '#7f133e', '#000000', '#af0024', '#ffa100', '#b523bc','#68464d','#2b6c77', '#007ec4','#a09d00', '#0e700c', '#42a040', '#29510c', '#026d29', '#098c7a', '#1daf9b', '#11423b',  '#32484c', '#2d627f', '#015c8e',  '#0e1a6d', '#333968', '#0f1228', '#45336d', '#63107f', '#91175c', '#4f052f', '#4f0516', '#756b49', '#4b7549', '#425954', '#424b59', '#433356', '#1a1d26', '#745b7a'];
 	let keysArr = []; //will give the user keys to <Area /> because for in loop isn't working. It HAS to be mapped.
-	console.log('CHART', props);
 	let randomStroke;
 
 	let chartPointsArr = props.data;
@@ -19,8 +18,6 @@ const Chart = (props) => {
 
 	//This becomes the data that generates the final chart
 	let userChartDataArr = [];
-
-	console.log('CHARTDATA',chartPointsArr)
 
 	//NEW LOOP: it loops only twice and never loops through the object, it matches user symbols through a dynamic object key '[coinSymbol]'
 	//For EACH snapshot:

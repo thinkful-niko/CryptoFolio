@@ -1,12 +1,5 @@
 import React from 'react';
 
-
-
-//How to create the href? You will need to pass in the user ID and coin ID (delete on match?, if user XYZXYXYZ has bitcoin, delete all iterations of bitcoins for this user), or create a new _id for the entry (easier, but how to handle duplicates?).
-//href={`/delete/${props.coin.userId}/${props.coin.id}`}
-
-
-
 const Table = (props) => (
 
 <div className='coinsTable'>
