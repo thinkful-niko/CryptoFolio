@@ -10,7 +10,6 @@ import { saveCoinData } from '../actions/addNew';
 const getSuggestions = (value, languages) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-  console.log('lang', value,languages);
     return inputLength === 0 ? [] : languages.filter(lang =>
     lang.name.toLowerCase().slice(0, inputLength) === inputValue
   );
@@ -73,7 +72,6 @@ export default class searchBar extends React.Component {
 
   onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) =>{
         // this.props.dispatch(saveCoinData({coin: suggestionValue}));
-        //THIS STOPPED WORKING FOR NO REASON, addCoinToEntry is not a function
         
         this.props.addCoinToEntry({coinData: suggestion}); //It shouldnt add coin on selection, but on a button press.
         console.log("onSuggestionSelected", suggestion.name, suggestion.price_usd);
@@ -87,6 +85,7 @@ export default class searchBar extends React.Component {
     const inputProps = {
       placeholder: 'Search currency by name',
       value,
+      id: 'searchInput',
       onChange: this.onChange
     };
 

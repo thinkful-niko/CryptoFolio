@@ -23,7 +23,8 @@ export const saveCoinData = (entry) => (dispatch, getState) => {
             // Provide our auth token as credentials
             Authorization: `Bearer ${authToken}`,
              'Accept': 'application/json, text/plain, */*',
-             'Content-Type': 'application/json'
+             'Content-Type': 'application/json',
+             'Access-Control-Allow-Origin': 'https://laughing-knuth-848bc8.netlify.com, https://cryptofolio1223.herokuapp.com, https://mlab.com'
         }
     })
         .then(res => normalizeResponseErrors(res))

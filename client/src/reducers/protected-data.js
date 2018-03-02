@@ -17,28 +17,17 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         //Pushes last entry into yourCoins array, also updates the chart with new data.
         case 'PUSH_ENTRY_TO_STATE':
-            //console.log('PUSH_ENTRY_TO_STATE', action, state);
-
             let yourCoinsArr = state.yourCoins;
             let lastEntry = action.entry;
             //MAKE COIN ADDITION USER UNIQUE - IF TWO USERS ARE LOGGED IN, WILL THEY SEE EACH OTHER ADDING COINS WITHOUT A FILTER HERE?
             yourCoinsArr.push(lastEntry);
-            //console.log('ADDED COINS:',yourCoinsArr);
 
             let addUniqueCoins = [];
-//PROBLEMATIC ---->Handles Unique Coins What if multiple users are logged in and they add coins (it should be fine, because it doesnt update over the server)? For some reason this is not triggering a render
-            // yourCoinsArr.forEach((coin)=>{
-            //     if(coin.userId === action.userId){
-            //         console.log('User Ids:', coin)
-            //         addUniqueCoins.push(coin);
-            //     };
-            // })
 
-            let result = [] 
-
+            let result = [] ;
             //This stopped working, probably something to do with result being empty
             yourCoinsArr.forEach((coin)=>{
-                //console.log(coin.id)
+                console.log('COIN',coin);
                 
                     for(var r=0; r<result.length; r++){
                 
@@ -52,13 +41,6 @@ export default function reducer(state = initialState, action) {
                 result.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd), userId: coin.userId})
             })
 
-
-
-            //console.log('ADD UNIQUE COINS:',...addUniqueCoins)
-            // let dummyData = action.historicalData;
-            // let chartDataUpdate = action.historicalData;
-            // chartDataUpdate.push(...dummyData);
-            // console.log(`ADDED lastEntry = ${lastEntry} TO yourCoinsArr = ${yourCoinsArr} HISTORICAL = ${chartDataUpdate}`);
             return {
                 ...state,
                 // data: action.data,
@@ -67,21 +49,15 @@ export default function reducer(state = initialState, action) {
             }
         //Renders Initial State and sets data to all data from the db
         case FETCH_PROTECTED_DATA_SUCCESS:
-            
-            //console.log('FETCH action',action)
-            //console.log(JSON.stringify('HSD', ...action.historicalData));
-
 
             //Initiate yourCoins with coins filtered by UserID
 
             let allEntries = [...action.entry];
-            //console.log('ALLENTRIES', allEntries, 'UNIQUE',action.unique);
 
             //Update prices on user coins with current prices
             action.unique.forEach((allDataCoin) => {
                 allEntries.forEach((userSingleCoin) => {
                     if (userSingleCoin.id == allDataCoin.id){
-                        //console.log('THIS COIN', userSingleCoin.price_usd);
                         userSingleCoin.price_usd = allDataCoin.price_usd;
                     }
                 })
@@ -110,11 +86,6 @@ export default function reducer(state = initialState, action) {
                 addedResult.push({symbol: coin.symbol, id:coin.id,amount:Number(coin.amount), price_usd:Number(coin.price_usd), userId: coin.userId})
             })
 
-
-
-            // console.log('USER UNIQUE',userUniqueEntries);
-            // console.log('UNIQUE Reducer', ...action.unique);
-            //console.log('ACTION:', action);
             return {
                 ...state,
                 data: [...action.unique],
@@ -143,7 +114,6 @@ export default function reducer(state = initialState, action) {
         case 'REMOVE_HANDLER':
             console.log('REMOVE_HANDLER', action.removedData.id, state);
             let newYourCoinsArr = state.yourCoins.filter(obj => {
-                console.log(obj);
                 return obj.id !== action.removedData.id
             });
             console.log(newYourCoinsArr);

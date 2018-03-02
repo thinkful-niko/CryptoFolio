@@ -43,6 +43,7 @@ export class Dashboard extends React.Component {
     addCoinToEntry = (coin) => {
         //I have to set this as a coin prop instead of using state
         this.setState(coin);
+        console.log("COIN BEING ADDED", coin);//it's creating the coin obj with the same _id. it needs to be a completely new obj.
         //if values are added first you will get NaN, this resets the amount to nothing after a coin is selected.
         document.getElementById('amountHandlerInput').value = '';
     }
@@ -58,6 +59,8 @@ export class Dashboard extends React.Component {
     addToList = () => {
         this.props.dispatch(pushEntryToState(null, this.state.coinData, this.props.userId));
         this.props.dispatch(saveCoinData(this.state.coinData));
+        document.getElementById('amountHandlerInput').value = '';
+        document.getElementById('searchInput').value = '';
     }
 
     removeUserCoinHandler = (userId, coinName) => {

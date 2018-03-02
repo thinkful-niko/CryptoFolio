@@ -151,10 +151,10 @@ exports.register = function(req, res, next) {
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
-
     let entry = new Entry(req.body);
     entry['userId'] = req.user.id;
     entry.save();
+    res.json({success: 'Coin Saved'});
 };
 
 exports.getCoins = function(req, res, next) {

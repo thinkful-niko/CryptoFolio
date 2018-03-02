@@ -54,7 +54,7 @@ const Chart = (props) => {
 	return(
 		<div>
 			<h2 title="Historical Amounts Not Yet Supported">Historical Portfolio Value:</h2>
-	        <AreaChart width={(window.innerWidth/100)*60} height={(window.innerHeight/100)*18} data={userChartDataArr}
+	        <AreaChart width={((window.innerWidth/100) * 95) - 670} height={(window.innerHeight/100)*18} data={userChartDataArr}
 	        margin={{top: 10, right: 30, left: 30, bottom: 0}}>
 	        	<XAxis dataKey="date"/>
 	            <YAxis/>
@@ -64,7 +64,7 @@ const Chart = (props) => {
 	        </AreaChart>
 
 			<h2 title="Historical Amounts Not Yet Supported">Historical Coin Value:</h2>
-			<AreaChart width={(window.innerWidth/100)*60} height={(window.innerHeight/100)*50} data={userChartDataArr}
+			<AreaChart width={((window.innerWidth/100) * 95) - 670} height={(window.innerHeight/100)*50} data={userChartDataArr}
 	        margin={{top: 0, right: 30, left: 30, bottom: 0}}>
 	            <XAxis dataKey="date"/>
 	            <YAxis/>
