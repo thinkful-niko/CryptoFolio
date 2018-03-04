@@ -17,14 +17,15 @@ export const saveCoinData = (entry) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     console.log('entry', entry);
     return fetch(`${API_BASE_URL}/addCoin`, {
+        mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify(entry),
         headers: {
             // Provide our auth token as credentials
             Authorization: `Bearer ${authToken}`,
              'Accept': 'application/json, text/plain, */*',
-             'Content-Type': 'application/json',
-             'Access-Control-Allow-Origin': 'https://laughing-knuth-848bc8.netlify.com, https://cryptofolio1223.herokuapp.com, https://mlab.com'
+             'Content-Type': 'application/json'
+             
         }
     })
         .then(res => normalizeResponseErrors(res))

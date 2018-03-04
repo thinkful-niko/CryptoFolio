@@ -22,7 +22,6 @@ export class RegistrationForm extends React.Component {
 
     render() {
         return (
-            <div>
                 <form
                     className="login-form"
                     onSubmit={this.props.handleSubmit(values =>
@@ -51,17 +50,11 @@ export class RegistrationForm extends React.Component {
                     />
                     <button
                         type="submit"
+                        className="sbmtBtn"
                         disabled={this.props.pristine || this.props.submitting}>
                         Register
                     </button>
                 </form>
-          {/*       <GoogleLogin
-                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                  />*/}
-            </div>
         );
     }
 }

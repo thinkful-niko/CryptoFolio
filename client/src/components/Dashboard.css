@@ -177,3 +177,76 @@ th{
 .deleteCoin:hover{
 	cursor: pointer;
 }
+
+
+@media only screen and (max-width:1200px) { 
+	.dashboard {
+		overflow-y: scroll;
+	}
+	.dashContainer{
+		padding: 0;
+		margin: 0;
+	}
+	.totalDisplay, .coinsDisplay{
+		display: block;
+		width: 100%;
+		margin: 10px 0 0 0;
+		height: auto;
+	}
+	.totalDisplay p{
+		padding: 20px;
+	}
+	.addCoin{
+		position: initial;
+		height: 35px;
+		font-size: 25px;
+		border: none;
+		border-radius: 0px;
+	}
+
+	.chartDisplay{
+		width: 100%;
+		margin: 10px 0 0 0;
+	}
+	table{
+		width: 100% !important;
+	}
+	.tableCoins, .tableLable{
+		width: 100%;
+		display: table;
+		padding: 0;
+
+	}
+	.tableCoins *, .tableLable *{
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+
+	th{
+		min-width: 23vw;
+	}
+	.tableCoins {
+		height: 33vh;
+	}
+	.tableCoins th {
+		height: 30px;
+		max-height: 30px;
+	}
+
+	.deleteCoin{
+		position: relative !important;
+		right: 99% !important;
+		font-size: 2vh;
+		min-width: 30px;
+		width: 30px;
+		text-align: center;
+	}
+
+	.deleteCoin a {
+		padding: 0;
+		font-size: 18px;
+	}
+
+
+}

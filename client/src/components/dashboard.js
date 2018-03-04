@@ -89,7 +89,6 @@ export class Dashboard extends React.Component {
                         <div className="totalValue">
                             <Total coins={this.props.yourCoins}/>
                         </div>
-                        <div className="percentChange"><p>+10.05% Change(24hrs)</p></div>
                     </div>
 
                     <div className="coinsDisplay">

@@ -11,11 +11,24 @@ const Chart = (props) => {
 	let colorArr = [ '#ff0c00', '#b2b200', '#00b217', '#04a0a0', '#0422d1', '#aa08af', '#7f133e', '#000000', '#af0024', '#ffa100', '#b523bc','#68464d','#2b6c77', '#007ec4','#a09d00', '#0e700c', '#42a040', '#29510c', '#026d29', '#098c7a', '#1daf9b', '#11423b',  '#32484c', '#2d627f', '#015c8e',  '#0e1a6d', '#333968', '#0f1228', '#45336d', '#63107f', '#91175c', '#4f052f', '#4f0516', '#756b49', '#4b7549', '#425954', '#424b59', '#433356', '#1a1d26', '#745b7a'];
 	let keysArr = []; //will give the user keys to <Area /> because for in loop isn't working. It HAS to be mapped.
 	let randomStroke;
+	let dynamicWidth;
+	let dynamicMargin;
 
 	let chartPointsArr = props.data;
 
 	let userCoins = props.userCoins;
 
+	//Handles chart width and margin for mobile and smaller screens, if the screen width is less than 1200 the charts will take 95vw width and display as block (on CSS media query). 
+	function chartWidth() {
+		if (window.innerWidth < 1200){
+			dynamicWidth = ((window.innerWidth/100) * 95);
+			dynamicMargin = {top: 0, right: 0, left: 0, bottom: 0};
+		} else {
+			dynamicWidth = (((window.innerWidth/100) * 95) - 670);
+			dynamicMargin = {top: 0, right: 30, left: 30, bottom: 0};
+		}
+	}
+	chartWidth();
 	//This becomes the data that generates the final chart
 	let userChartDataArr = [];
 
@@ -52,10 +65,10 @@ const Chart = (props) => {
 
 
 	return(
-		<div>
+		<div id='rechartsContainer'>
 			<h2 title="Historical Amounts Not Yet Supported">Historical Portfolio Value:</h2>
-	        <AreaChart width={((window.innerWidth/100) * 95) - 670} height={(window.innerHeight/100)*18} data={userChartDataArr}
-	        margin={{top: 10, right: 30, left: 30, bottom: 0}}>
+	        <AreaChart width={dynamicWidth} height={(window.innerHeight/100)*18} data={userChartDataArr}
+	        margin={dynamicMargin}>
 	        	<XAxis dataKey="date"/>
 	            <YAxis/>
 	            <CartesianGrid strokeDasharray="3 3"/>
@@ -64,8 +77,8 @@ const Chart = (props) => {
 	        </AreaChart>
 
 			<h2 title="Historical Amounts Not Yet Supported">Historical Coin Value:</h2>
-			<AreaChart width={((window.innerWidth/100) * 95) - 670} height={(window.innerHeight/100)*50} data={userChartDataArr}
-	        margin={{top: 0, right: 30, left: 30, bottom: 0}}>
+			<AreaChart width={dynamicWidth} height={(window.innerHeight/100)*50} data={userChartDataArr}
+	        margin={dynamicMargin}>
 	            <XAxis dataKey="date"/>
 	            <YAxis/>
 	            <CartesianGrid strokeDasharray="3 3"/>
