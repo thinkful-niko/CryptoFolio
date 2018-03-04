@@ -8,12 +8,6 @@ import LoginForm from './login-form';
 import RegisterForm from './registration-form.js'
 
 export class LandingPage extends React.Component {
-    // If we are logged in redirect straight to the user's dashboard
-    // toggleForm(e){
-    //     console.log('toggleForm')
-    //     e.preventDefault()
-    // }
-    // If we are logged in redirect straight to the user's dashboard
     
     constructor(props) { 
         
@@ -24,9 +18,6 @@ export class LandingPage extends React.Component {
         };
 
         console.log(props, this.state);
-    //     if (this.state.loggedIn) {
-        
-    // }
     }
     handleRegister(e) {
         this.setState(prevState => ({
@@ -64,8 +55,8 @@ export class LandingPage extends React.Component {
                   {/*<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>*/}
                 </form>
                 <div>
-                    { this.state.isLoginOn? <LoginForm/> : null }
-                    { this.state.isRegisterOn? <RegisterForm/> : null }
+                    { this.state.isLoginOn? <LoginForm exitForm = {(e)=>{ this.handleLogin(e) }}/> : null }
+                    { this.state.isRegisterOn? <RegisterForm exitForm = {(e)=>{ this.handleRegister(e) }}/> : null }
                 </div>
               </div>
             </div>

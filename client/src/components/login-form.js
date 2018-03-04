@@ -20,30 +20,34 @@ export class LoginForm extends React.Component {
         }
         return (
             <form
-                className="login-form"
+                className="login-form loginForm"
                 onSubmit={this.props.handleSubmit(values =>
                     this.onSubmit(values)
                 )}>
                 {error}
-                <label htmlFor="email">Email</label>
-                <Field
-                    component={Input}
-                    type="text"
-                    name="email"
-                    id="email"
-                    validate={[required, nonEmpty]}
-                />
-                <label htmlFor="password">Password</label>
-                <Field
-                    component={Input}
-                    type="password"
-                    name="password"
-                    id="password"
-                    validate={[required, nonEmpty]}
-                />
-                <button disabled={this.props.pristine || this.props.submitting} className="sbmtBtn">
-                    Log in
-                </button>
+                <button className = 'authMenuExit' onClick = {this.props.exitForm}>X</button>
+                <h2>Login</h2>
+                <div className='fieldsContainer'>
+                    <label htmlFor="email">Email</label>
+                    <Field
+                        component={Input}
+                        type="text"
+                        name="email"
+                        id="email"
+                        validate={[required, nonEmpty]}
+                    />
+                    <label htmlFor="password">Password</label>
+                    <Field
+                        component={Input}
+                        type="password"
+                        name="password"
+                        id="password"
+                        validate={[required, nonEmpty]}
+                    />
+                    <button disabled={this.props.pristine || this.props.submitting} className="sbmtBtn">
+                        Log in
+                    </button>
+                </div>
             </form>
         );
     }

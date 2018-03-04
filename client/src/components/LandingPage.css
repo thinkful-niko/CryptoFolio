@@ -47,29 +47,74 @@
 .login-form {
   position: absolute;
   left: 50%;
-  top: 75%;
+  top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  width: 100vw;
+  height: 40vh;
+  background: #131960; /* Old browsers */
+  background: -moz-linear-gradient(45deg, #131960 9%, #940ea5 90%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #131960 9%,#940ea5 90%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #131960 9%,#940ea5 90%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131960', endColorstr='#940ea5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.form-error{
+  color: red;
+}
+
+.login-form h2 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.fieldsContainer{
+  position: relative;
+  top: 40%;
+  transform: translate(0, -50%);
+}
+
+
+.authMenuExit {
+  position: relative;
+  top: 10px;
+  left: 15vw;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  font-size: 1.4em;
+  transition: all 0.4s;
+}
+
+.authMenuExit:hover{
+  cursor: pointer;
+  background: white;
+  color: black;
 }
 
 .login-form input{
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 3px;
   font-size: 18px;
+  font-weight: 500;
+  background: transparent;
+  color: white;
 }
 
 .sbmtBtn{
+  position: relative;
+  top: 20px;
   font-weight: 500;
   padding: 10px;
-  margin: 5px;
   width: 10vw;
-  font-size: 1.4em;
+  font-size: 1.1em;
   background: none;
   border: 2px solid white;
   border-radius: 10px;
   color: white;
   transition: all 0.6s;
-  background: rgba(15, 155, 15, 0.7);
+  background: rgba(15, 195, 15, 0.7);
 }
 
 
@@ -81,20 +126,36 @@
     margin: 0 auto;
   }
   .LandingPage-title{
-    top: 2vh;
+    top: 25%;
     font-size: 2em;
   }
   .LandingPage-intro{
-    top: 10vh;
+    top: 35%;
   }
   .LandingPage-buttons{
-    top: 25vh;
+    top: 50%;
   }
   .LandingPage-buttons * {
     font-size: 1.1em;
-    padding: 10px
+    padding: 20px
+  }
+  .LandingPage-buttons p {
+    padding: 5px;
+    margin: 0;
+  }
+  .login-form{
+    height: 70vh
   }
   .sbmtBtn{
-    width: 60vw;
+    width: 40vw;
+  }
+  .authMenuExit{
+    left: 35vw;
+  }
+  .fieldsContainer{
+    top: 35%;
+  }
+  .login-form h2 {
+    padding-top: 30px;
   }
 }

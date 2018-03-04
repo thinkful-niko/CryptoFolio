@@ -17,7 +17,6 @@ export const saveCoinData = (entry) => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     console.log('entry', entry);
     return fetch(`${API_BASE_URL}/addCoin`, {
-        mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify(entry),
         headers: {
