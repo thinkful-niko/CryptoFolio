@@ -54,10 +54,12 @@ export class LandingPage extends React.Component {
                   <button className="LandingPage-logInBtn" onClick = {(e)=>{ this.handleLogin(e) }}>Log In</button>
                   {/*<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>*/}
                 </form>
+
                 <div>
                     { this.state.isLoginOn? <LoginForm exitForm = {(e)=>{ this.handleLogin(e) }}/> : null }
                     { this.state.isRegisterOn? <RegisterForm exitForm = {(e)=>{ this.handleRegister(e) }}/> : null }
                 </div>
+                <p className='demoInfo'>Demo account (login: demo@demo.com | password: demo)</p>
               </div>
             </div>
 

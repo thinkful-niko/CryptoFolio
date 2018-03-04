@@ -1,6 +1,9 @@
-
+body{
+  overflow-x: hidden;
+}
 .LandingPage{
   color: #fff;
+  overflow: hidden;
 }
 .LandingPage-title, .LandingPage-intro,.LandingPage-buttons{
   font-family: 'Open Sans';
@@ -117,7 +120,18 @@
   background: rgba(15, 195, 15, 0.7);
 }
 
-
+.demoInfo{
+  color: white;
+  font-size: 0.8em;
+  position: absolute;
+  top: 80vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  width: 100vw;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+}
 
 @media only screen and (max-width:800px) {
   .LandingPage-getStartedBtn, .LandingPage-logInBtn{
