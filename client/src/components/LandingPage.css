@@ -158,13 +158,14 @@ body{
     margin: 0;
   }
   .login-form{
-    height: 70vh
+    height: 100vh
   }
   .sbmtBtn{
     width: 40vw;
   }
   .authMenuExit{
     left: 35vw;
+    top: 5vh;
   }
   .fieldsContainer{
     top: 35%;
