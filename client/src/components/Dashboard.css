@@ -3,7 +3,7 @@
     height: calc(100vh - 50px);
     background: white;
     position: absolute;
-    bottom: 0vh;
+    bottom: 0px;
     margin: 0px;
     overflow: hidden;
 }
@@ -191,6 +191,7 @@ th{
 @media only screen and (max-width:1200px) { 
 	.dashboard {
 		overflow-y: scroll;
+		top: 50px;
 	}
 	.dashContainer{
 		padding: 0;
