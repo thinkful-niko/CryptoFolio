@@ -83,6 +83,7 @@ export class Dashboard extends React.Component {
 
         return (
             <div className="dashboard">
+            
                 <div className="dashContainer">
                     <div className="totalDisplay">
                         <h1>Potfolio Value</h1>

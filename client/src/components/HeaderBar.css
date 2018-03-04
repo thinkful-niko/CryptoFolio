@@ -1,0 +1,17 @@
+.Logo{
+	position: absolute;
+	color: white;
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+.logOutBtn{
+	background: transparent;
+	border: 1px solid white;
+	font-size: 1.4em;
+	color: white;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}

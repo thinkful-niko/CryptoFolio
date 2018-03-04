@@ -7,6 +7,15 @@
     margin: 0px;
     overflow: hidden;
 }
+.Logo{
+	display: inline-block;
+	position: absolute;
+	top: 0vh;
+	color: white;
+	font-weight: 400;
+	left: 50%;
+	transform: translateX(-50%);
+}
 
 .dashContainer{
 	margin: auto;
@@ -195,6 +204,7 @@ th{
 	}
 	.totalDisplay p{
 		padding: 20px;
+		font-size: 2.6em;
 	}
 	.addCoin{
 		position: initial;

@@ -36,6 +36,8 @@ export class LandingPage extends React.Component {
     }
     render(){
         if (this.props.loggedIn) {
+            const logo = document.getElementsByClassName('Logo')[0];
+            logo.style.display = 'block';
             return <Redirect to="/dashboard" />;
         }
         return (
