@@ -151,7 +151,11 @@ exports.register = function(req, res, next) {
 
 //Add Entry
 exports.addEntry = function(req, res, next) {
+    console.log('ADD ENTRY', req.body);
+    delete req.body._id;
+    console.log('ADD ENTRY WITHOUT _ID', req.body);
     let entry = new Entry(req.body);
+    console.log('ENTRY AFTER', Entry);
     entry['userId'] = req.user.id;
     entry.save();
     res.json({success: 'Coin Saved'});

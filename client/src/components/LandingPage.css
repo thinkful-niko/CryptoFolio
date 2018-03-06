@@ -133,6 +133,10 @@ body{
   background: rgba(0, 0, 0, 0.6);
 }
 
+label .form-error{
+  display: none;
+}
+
 @media only screen and (max-width:800px) {
   .LandingPage-getStartedBtn, .LandingPage-logInBtn{
     display: block;

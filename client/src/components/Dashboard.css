@@ -26,7 +26,6 @@
 
 .totalDisplay, .coinsDisplay, .chartDisplay{
 	margin: 10px 0.5vw 0 0.5vw;
-/*	padding: 2.05vh 1.04vw;*/
 	padding: 0;
 	background: #ededed;
 	border-top: 5px solid transparent;
