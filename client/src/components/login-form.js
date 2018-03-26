@@ -28,7 +28,7 @@ export class LoginForm extends React.Component {
                 <button className = 'authMenuExit' onClick = {this.props.exitForm}>X</button>
                 <h2>Login</h2>
                 <div className='fieldsContainer'>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Email <span className='caseSensitive'>(case sensitive)</span></label>
                     <Field
                         component={Input}
                         type="text"
@@ -36,7 +36,7 @@ export class LoginForm extends React.Component {
                         id="email"
                         validate={[required, nonEmpty]}
                     />
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Password <span className='caseSensitive'>(case sensitive)</span></label>
                     <Field
                         component={Input}
                         type="password"

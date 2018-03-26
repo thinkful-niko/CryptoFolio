@@ -15,11 +15,6 @@ export class RegistrationForm extends React.Component {
             .then(() => this.props.dispatch(login(email, password)));
     }
 
-    responseGoogle(response){
-      console.log(response);
-      
-    }
-
     render() {
         return (
                 <form
@@ -30,14 +25,14 @@ export class RegistrationForm extends React.Component {
                     <button className = 'authMenuExit' onClick = {this.props.exitForm}>X</button>
                     <h2>Register</h2>
                     <div className='fieldsContainer'>
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">Email <span className='caseSensitive'>(case sensitive)</span></label>
                         <Field
                             component={Input}
                             type="text"
                             name="email"
                             validate={[required, nonEmpty, isTrimmed]}
                         />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Password <span className='caseSensitive'>(case sensitive)</span></label>
                         <Field
                             component={Input}
                             type="password"

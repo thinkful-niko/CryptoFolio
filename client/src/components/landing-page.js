@@ -48,7 +48,7 @@ export class LandingPage extends React.Component {
                   <h1 className="LandingPage-title">Cryptofolio</h1>
                 </header>
                 <p className="LandingPage-intro">
-                  Portfolio Manager for Cryptocurrencies.
+                  Portfolio Tracker for Cryptocurrencies.
                 </p>
                 <form className="LandingPage-buttons">
                   <button className="LandingPage-getStartedBtn" onClick={(e)=>{ this.handleRegister(e) }}>Get Started</button>

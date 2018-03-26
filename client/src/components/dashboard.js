@@ -1,5 +1,5 @@
 /*TO-DO:
--Historical Amount Handler and Snapshots
+-Historical Amount Handler (additional amounts already generate extra documents in the entries collection with timestamps, but subtracting amounts also needs to be handled).
 -E-mail Alerts
 -Portfolio Percentages
 -Diff % 
